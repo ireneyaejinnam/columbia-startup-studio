@@ -1,0 +1,1 @@
+All ideas generated and disusses are in the (figjam export)[ideas.pdf]
