@@ -1,0 +1,82 @@
+[
+  {
+    "person_id": 1,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 2,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 3,
+    "clarity_score": "nailed_it"
+  },
+  {
+    "person_id": 4,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 5,
+    "clarity_score": "nailed_it"
+  },
+  {
+    "person_id": 6,
+    "clarity_score": "wrong"
+  },
+  {
+    "person_id": 7,
+    "clarity_score": "wrong"
+  },
+  {
+    "person_id": 8,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 9,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 10,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 11,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 12,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 13,
+    "clarity_score": "wrong"
+  },
+  {
+    "person_id": 14,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 15,
+    "clarity_score": "nailed_it"
+  },
+  {
+    "person_id": 16,
+    "clarity_score": "wrong"
+  },
+  {
+    "person_id": 17,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 18,
+    "clarity_score": "partial"
+  },
+  {
+    "person_id": 19,
+    "clarity_score": "wrong"
+  },
+  {
+    "person_id": 20,
+    "clarity_score": "wrong"
+  }
+]

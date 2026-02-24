@@ -1,0 +1,57 @@
+
+============================================================
+EVALUATION RESULTS (n=60)
+============================================================
+
+OVERALL:
+  resonance: 68% agree+  |  {'strongly_disagree': 6, 'disagree': 6, 'neutral': 7, 'agree': 28, 'strongly_agree': 13}
+  intent: 73% agree+  |  {'strongly_disagree': 6, 'disagree': 3, 'neutral': 7, 'agree': 30, 'strongly_agree': 14}
+  conversion_confidence: 57% agree+  |  {'strongly_disagree': 7, 'disagree': 6, 'neutral': 13, 'agree': 23, 'strongly_agree': 11}
+  dealbreakers: 3% (2/60)
+  clarity: {'partial': 15, 'nailed_it': 39, 'wrong': 6}
+  price: {'fair': 33, 'too_expensive': 11, 'good_deal': 16}
+
+PER BUCKET:
+
+  academic_probation_risk (n=12):
+    resonance: 42% agree+
+    intent: 67% agree+
+    conversion_confidence: 58% agree+
+    dealbreakers: 8%
+
+  anxiety_scroll_loop (n=12):
+    resonance: 83% agree+
+    intent: 75% agree+
+    conversion_confidence: 42% agree+
+    dealbreakers: 0%
+
+  compulsive_night_scroller (n=12):
+    resonance: 50% agree+
+    intent: 83% agree+
+    conversion_confidence: 67% agree+
+    dealbreakers: 0%
+
+  deadline_derailer (n=12):
+    resonance: 83% agree+
+    intent: 58% agree+
+    conversion_confidence: 83% agree+
+    dealbreakers: 0%
+
+  sleep_deprived_rebounder (n=12):
+    resonance: 83% agree+
+    intent: 83% agree+
+    conversion_confidence: 33% agree+
+    dealbreakers: 8%
+
+DELTAS FROM PREVIOUS:
+  resonance: +3pp
+  intent: +16pp
+  conversion_confidence: +9pp
+  dealbreaker: -4pp
+
+  Per bucket:
+    academic_probation_risk: res:-33, int:-8, con:+41
+    anxiety_scroll_loop: res:+16, int:+25, con:-16
+    compulsive_night_scroller: res:+8, int:+16, con:+9
+    deadline_derailer: res:+25, int:+8, con:+16
+    sleep_deprived_rebounder: res:0, int:+41, con:-9

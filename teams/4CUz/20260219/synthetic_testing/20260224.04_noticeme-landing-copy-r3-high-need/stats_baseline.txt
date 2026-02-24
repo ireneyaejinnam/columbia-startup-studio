@@ -1,0 +1,44 @@
+
+============================================================
+EVALUATION RESULTS (n=60)
+============================================================
+
+OVERALL:
+  resonance: 3% agree+  |  {'strongly_disagree': 10, 'disagree': 28, 'neutral': 20, 'agree': 2, 'strongly_agree': 0}
+  intent: 7% agree+  |  {'strongly_disagree': 5, 'disagree': 24, 'neutral': 27, 'agree': 3, 'strongly_agree': 1}
+  conversion_confidence: 12% agree+  |  {'strongly_disagree': 10, 'disagree': 22, 'neutral': 21, 'agree': 3, 'strongly_agree': 4}
+  dealbreakers: 33% (20/60)
+  clarity: {'wrong': 26, 'partial': 23, 'nailed_it': 11}
+  price: {'fair': 26, 'too_expensive': 28, 'good_deal': 6}
+
+PER BUCKET:
+
+  academic_probation_risk (n=12):
+    resonance: 0% agree+
+    intent: 8% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 8%
+
+  anxiety_scroll_loop (n=12):
+    resonance: 0% agree+
+    intent: 8% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 67%
+
+  compulsive_night_scroller (n=12):
+    resonance: 8% agree+
+    intent: 8% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 42%
+
+  deadline_derailer (n=12):
+    resonance: 8% agree+
+    intent: 8% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 25%
+
+  sleep_deprived_rebounder (n=12):
+    resonance: 0% agree+
+    intent: 0% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 25%

@@ -1,0 +1,44 @@
+
+============================================================
+EVALUATION RESULTS (n=60)
+============================================================
+
+OVERALL:
+  resonance: 13% agree+  |  {'strongly_disagree': 9, 'disagree': 25, 'neutral': 18, 'agree': 6, 'strongly_agree': 2}
+  intent: 13% agree+  |  {'strongly_disagree': 11, 'disagree': 20, 'neutral': 21, 'agree': 6, 'strongly_agree': 2}
+  conversion_confidence: 10% agree+  |  {'strongly_disagree': 10, 'disagree': 15, 'neutral': 29, 'agree': 3, 'strongly_agree': 3}
+  dealbreakers: 37% (22/60)
+  clarity: {'partial': 28, 'wrong': 15, 'nailed_it': 17}
+  price: {'fair': 23, 'good_deal': 6, 'too_expensive': 31}
+
+PER BUCKET:
+
+  commuter_student_fragmented (n=12):
+    resonance: 25% agree+
+    intent: 0% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 33%
+
+  freshman_overloaded (n=12):
+    resonance: 0% agree+
+    intent: 17% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 42%
+
+  grad_student_burnout (n=12):
+    resonance: 25% agree+
+    intent: 0% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 25%
+
+  student_creator_distraction (n=12):
+    resonance: 8% agree+
+    intent: 42% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 42%
+
+  upperclassman_procrastinator (n=12):
+    resonance: 8% agree+
+    intent: 8% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 42%

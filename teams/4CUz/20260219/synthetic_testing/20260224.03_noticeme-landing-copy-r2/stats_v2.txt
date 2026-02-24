@@ -1,0 +1,57 @@
+
+============================================================
+EVALUATION RESULTS (n=60)
+============================================================
+
+OVERALL:
+  resonance: 45% agree+  |  {'strongly_disagree': 8, 'disagree': 6, 'neutral': 19, 'agree': 20, 'strongly_agree': 7}
+  intent: 42% agree+  |  {'strongly_disagree': 8, 'disagree': 14, 'neutral': 13, 'agree': 15, 'strongly_agree': 10}
+  conversion_confidence: 18% agree+  |  {'strongly_disagree': 12, 'disagree': 18, 'neutral': 19, 'agree': 9, 'strongly_agree': 2}
+  dealbreakers: 28% (17/60)
+  clarity: {'partial': 24, 'wrong': 14, 'nailed_it': 22}
+  price: {'too_expensive': 22, 'fair': 24, 'good_deal': 14}
+
+PER BUCKET:
+
+  deletion_rebounder (n=12):
+    resonance: 17% agree+
+    intent: 42% agree+
+    conversion_confidence: 33% agree+
+    dealbreakers: 25%
+
+  privacy_guarded (n=12):
+    resonance: 50% agree+
+    intent: 25% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 25%
+
+  self_control_fatigued (n=12):
+    resonance: 75% agree+
+    intent: 42% agree+
+    conversion_confidence: 8% agree+
+    dealbreakers: 42%
+
+  skeptical_optimizer (n=12):
+    resonance: 58% agree+
+    intent: 50% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 17%
+
+  social_motivated (n=12):
+    resonance: 25% agree+
+    intent: 50% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 33%
+
+DELTAS FROM PREVIOUS:
+  resonance: +23pp
+  intent: +15pp
+  conversion_confidence: 0pp
+  dealbreaker: +3pp
+
+  Per bucket:
+    deletion_rebounder: res:0, int:+9, con:+25
+    privacy_guarded: res:+33, int:+17, con:+9
+    self_control_fatigued: res:+58, int:0, con:-9
+    skeptical_optimizer: res:+25, int:+33, con:0
+    social_motivated: res:0, int:+17, con:-25
