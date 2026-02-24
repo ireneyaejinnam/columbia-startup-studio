@@ -1,0 +1,31 @@
+{
+  "buckets": ["post_breakup_rebound", "new_city_rebuilder", "event_burned_out", "institutional_connector", "high_urgency_reset"],
+  "per_bucket": 12,
+  "females_per_bucket": 9,
+  "males_per_bucket": 3,
+  "age_bands": [[22, 24], [25, 27], [28, 30]],
+  "female_allocations": [
+    {"bucket": "post_breakup_rebound", "age_band": [22, 24], "count": 3},
+    {"bucket": "post_breakup_rebound", "age_band": [25, 27], "count": 3},
+    {"bucket": "post_breakup_rebound", "age_band": [28, 30], "count": 3},
+    {"bucket": "new_city_rebuilder", "age_band": [22, 24], "count": 3},
+    {"bucket": "new_city_rebuilder", "age_band": [25, 27], "count": 3},
+    {"bucket": "new_city_rebuilder", "age_band": [28, 30], "count": 3},
+    {"bucket": "event_burned_out", "age_band": [22, 24], "count": 3},
+    {"bucket": "event_burned_out", "age_band": [25, 27], "count": 3},
+    {"bucket": "event_burned_out", "age_band": [28, 30], "count": 3},
+    {"bucket": "institutional_connector", "age_band": [22, 24], "count": 3},
+    {"bucket": "institutional_connector", "age_band": [25, 27], "count": 3},
+    {"bucket": "institutional_connector", "age_band": [28, 30], "count": 3},
+    {"bucket": "high_urgency_reset", "age_band": [22, 24], "count": 3},
+    {"bucket": "high_urgency_reset", "age_band": [25, 27], "count": 3},
+    {"bucket": "high_urgency_reset", "age_band": [28, 30], "count": 3}
+  ],
+  "male_ages": {
+    "post_breakup_rebound": [23, 26, 29],
+    "new_city_rebuilder": [24, 27, 30],
+    "event_burned_out": [22, 25, 28],
+    "institutional_connector": [23, 26, 29],
+    "high_urgency_reset": [24, 27, 30]
+  }
+}

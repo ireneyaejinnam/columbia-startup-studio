@@ -1,0 +1,47 @@
+{
+  "folder": "20260224.06_noticeme-landing-copy-r5-students-only",
+  "brief_suffix": "r5-students-only",
+  "profiles": 60,
+  "buckets": [
+    "freshman_overloaded",
+    "upperclassman_procrastinator",
+    "grad_student_burnout",
+    "commuter_student_fragmented",
+    "student_creator_distraction"
+  ],
+  "ages": [
+    [
+      18,
+      20
+    ],
+    [
+      21,
+      23
+    ],
+    [
+      24,
+      26
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      31,
+      34
+    ]
+  ],
+  "occupation_pool": [
+    "Student",
+    "Graduate student",
+    "Teaching assistant",
+    "Research assistant",
+    "Campus club lead"
+  ],
+  "life_stage_pool": [
+    "undergrad",
+    "grad school",
+    "thesis term"
+  ],
+  "need_level": "students_only"
+}
