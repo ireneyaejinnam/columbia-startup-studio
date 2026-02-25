@@ -96,6 +96,6 @@
 | V1 | v1/v1_copy.md | v1/results_v1.json | v1/charts_v1.html | v1/summary_v1.md |
 | V2 | v2/v2_copy.md | v2/results_v2.json | v2/charts_v2.html | v2/summary_v2.md, v2/v1_changes.md |
 | V3 | v3/v3_copy.md | v3/results_v3.json | v3/charts_v3.html | v3/summary_v3.md, v3/v2_changes.md |
-| V4 | v4/v4_copy.md | v4/results_v4.json | v4/charts_v4.html | — |
-| V5 | v5/v5_copy.md | v5/results_v5.json | v5/charts_v5.html | — |
-| V6 | v6/v6_copy.md | v6/results_v6.json | v6/charts_v6.html | — |
+| V4 | v4/v4_copy.md | v4/results_v4.json | v4/charts_v4.html | v4/summary_v4.md, v4/v3_changes.md |
+| V5 | v5/v5_copy.md | v5/results_v5.json | v5/charts_v5.html | v5/summary_v5.md, v5/v4_changes.md |
+| V6 | v6/v6_copy.md | v6/results_v6.json | v6/charts_v6.html | v6/summary_v6.md, v6/v5_changes.md |
