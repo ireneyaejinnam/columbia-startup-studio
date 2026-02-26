@@ -1,0 +1,47 @@
+{
+  "folder": "20260224.04_noticeme-landing-copy-r3-high-need",
+  "brief_suffix": "r3-high-need",
+  "profiles": 60,
+  "buckets": [
+    "compulsive_night_scroller",
+    "deadline_derailer",
+    "sleep_deprived_rebounder",
+    "academic_probation_risk",
+    "anxiety_scroll_loop"
+  ],
+  "ages": [
+    [
+      18,
+      20
+    ],
+    [
+      21,
+      23
+    ],
+    [
+      24,
+      26
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      31,
+      34
+    ]
+  ],
+  "occupation_pool": [
+    "Student",
+    "Graduate student",
+    "Research assistant",
+    "Campus worker",
+    "Intern"
+  ],
+  "life_stage_pool": [
+    "undergrad",
+    "grad school",
+    "intensive study"
+  ],
+  "need_level": "high_need"
+}

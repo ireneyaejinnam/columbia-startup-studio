@@ -1,0 +1,264 @@
+{
+  "buckets": [
+    "self_control_fatigued",
+    "social_motivated",
+    "privacy_guarded",
+    "deletion_rebounder",
+    "skeptical_optimizer"
+  ],
+  "per_bucket": 12,
+  "females_per_bucket": 9,
+  "males_per_bucket": 3,
+  "females_per_age_band": 9,
+  "age_bands": [
+    [
+      18,
+      20
+    ],
+    [
+      21,
+      23
+    ],
+    [
+      24,
+      26
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      31,
+      34
+    ]
+  ],
+  "female_allocations": [
+    {
+      "bucket": "self_control_fatigued",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "self_control_fatigued",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "self_control_fatigued",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "self_control_fatigued",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "self_control_fatigued",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "social_motivated",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "social_motivated",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "social_motivated",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "social_motivated",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "social_motivated",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "privacy_guarded",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "privacy_guarded",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "privacy_guarded",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "privacy_guarded",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "privacy_guarded",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "deletion_rebounder",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deletion_rebounder",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deletion_rebounder",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deletion_rebounder",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deletion_rebounder",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "skeptical_optimizer",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "skeptical_optimizer",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "skeptical_optimizer",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "skeptical_optimizer",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "skeptical_optimizer",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    }
+  ],
+  "male_ages": {
+    "self_control_fatigued": [
+      19,
+      24,
+      29
+    ],
+    "social_motivated": [
+      20,
+      22,
+      28
+    ],
+    "privacy_guarded": [
+      21,
+      25,
+      31
+    ],
+    "deletion_rebounder": [
+      19,
+      23,
+      27
+    ],
+    "skeptical_optimizer": [
+      22,
+      26,
+      32
+    ]
+  }
+}

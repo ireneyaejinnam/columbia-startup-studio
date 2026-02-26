@@ -1,0 +1,25 @@
+### What was learned:
+- Who: 
+	- 2nd year P.hd candidate in Sociology
+- Problem confirmed: 
+	- Yes. He is a qualitative researcher by training, who is looking to bring quantitative methods into his research. He is highly interested in network analysis for this. Additionally, version control is also a big problem for him, data and document wise."
+- Key quotes:
+	- Interviewee permission requested.
+- Emotional intensity: 
+	- Mostly flat, but 7/8 on main pain point
+- Current solution: 
+	- LLM’s for quantitative analysis and some software tasks / data collection via API's and scraping, he has some knowledge of R. He uses Microsoft Office, Word & Excel for qualitative analysis and writing reports. 
+- Money spent:
+	- LLM subscriptions.
+### Reaction + Commitments
+- Solution reaction: 
+	- I did not pitch a “solution”, I listened. I identified some direct crossover between his problems and the current implementation. 
+- Biggest concern: 
+	- N/A
+- Referral: 
+	- Forgot to ask
+- Follow-up: 
+	- Yes
+- Surprises: 
+	- He works alone for most projects, other than sending up material progress for advisor feedback/guidance. Has not used Nvivo/Atlas.ti etc but is aware. 
+- Signal: Green 

@@ -1,0 +1,122 @@
+[
+  {
+    "person_id": 1,
+    "gender": "female",
+    "bucket": "self_control_fatigued",
+    "age": 19
+  },
+  {
+    "person_id": 2,
+    "gender": "male",
+    "bucket": "self_control_fatigued",
+    "age": 19
+  },
+  {
+    "person_id": 3,
+    "gender": "female",
+    "bucket": "self_control_fatigued",
+    "age": 21
+  },
+  {
+    "person_id": 4,
+    "gender": "female",
+    "bucket": "self_control_fatigued",
+    "age": 25
+  },
+  {
+    "person_id": 5,
+    "gender": "female",
+    "bucket": "social_motivated",
+    "age": 18
+  },
+  {
+    "person_id": 6,
+    "gender": "male",
+    "bucket": "social_motivated",
+    "age": 19
+  },
+  {
+    "person_id": 7,
+    "gender": "female",
+    "bucket": "social_motivated",
+    "age": 22
+  },
+  {
+    "person_id": 8,
+    "gender": "female",
+    "bucket": "social_motivated",
+    "age": 26
+  },
+  {
+    "person_id": 9,
+    "gender": "male",
+    "bucket": "privacy_guarded",
+    "age": 19
+  },
+  {
+    "person_id": 10,
+    "gender": "female",
+    "bucket": "privacy_guarded",
+    "age": 20
+  },
+  {
+    "person_id": 11,
+    "gender": "female",
+    "bucket": "privacy_guarded",
+    "age": 21
+  },
+  {
+    "person_id": 12,
+    "gender": "female",
+    "bucket": "privacy_guarded",
+    "age": 26
+  },
+  {
+    "person_id": 13,
+    "gender": "female",
+    "bucket": "deletion_rebounder",
+    "age": 19
+  },
+  {
+    "person_id": 14,
+    "gender": "male",
+    "bucket": "deletion_rebounder",
+    "age": 19
+  },
+  {
+    "person_id": 15,
+    "gender": "female",
+    "bucket": "deletion_rebounder",
+    "age": 23
+  },
+  {
+    "person_id": 16,
+    "gender": "female",
+    "bucket": "deletion_rebounder",
+    "age": 25
+  },
+  {
+    "person_id": 17,
+    "gender": "male",
+    "bucket": "skeptical_optimizer",
+    "age": 19
+  },
+  {
+    "person_id": 18,
+    "gender": "female",
+    "bucket": "skeptical_optimizer",
+    "age": 20
+  },
+  {
+    "person_id": 19,
+    "gender": "female",
+    "bucket": "skeptical_optimizer",
+    "age": 23
+  },
+  {
+    "person_id": 20,
+    "gender": "female",
+    "bucket": "skeptical_optimizer",
+    "age": 24
+  }
+]

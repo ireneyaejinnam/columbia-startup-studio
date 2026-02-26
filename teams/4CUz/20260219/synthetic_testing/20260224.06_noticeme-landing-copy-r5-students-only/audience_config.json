@@ -1,0 +1,264 @@
+{
+  "buckets": [
+    "freshman_overloaded",
+    "upperclassman_procrastinator",
+    "grad_student_burnout",
+    "commuter_student_fragmented",
+    "student_creator_distraction"
+  ],
+  "per_bucket": 12,
+  "females_per_bucket": 9,
+  "males_per_bucket": 3,
+  "females_per_age_band": null,
+  "age_bands": [
+    [
+      18,
+      20
+    ],
+    [
+      21,
+      23
+    ],
+    [
+      24,
+      26
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      31,
+      34
+    ]
+  ],
+  "female_allocations": [
+    {
+      "bucket": "freshman_overloaded",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "freshman_overloaded",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "freshman_overloaded",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "freshman_overloaded",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "freshman_overloaded",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "upperclassman_procrastinator",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "upperclassman_procrastinator",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "upperclassman_procrastinator",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "upperclassman_procrastinator",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "upperclassman_procrastinator",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "grad_student_burnout",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "grad_student_burnout",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "grad_student_burnout",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "grad_student_burnout",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "grad_student_burnout",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "commuter_student_fragmented",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "commuter_student_fragmented",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "commuter_student_fragmented",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "commuter_student_fragmented",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "commuter_student_fragmented",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "student_creator_distraction",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "student_creator_distraction",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "student_creator_distraction",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "student_creator_distraction",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "student_creator_distraction",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    }
+  ],
+  "male_ages": {
+    "freshman_overloaded": [
+      19,
+      22,
+      25
+    ],
+    "upperclassman_procrastinator": [
+      19,
+      22,
+      25
+    ],
+    "grad_student_burnout": [
+      19,
+      22,
+      25
+    ],
+    "commuter_student_fragmented": [
+      19,
+      22,
+      25
+    ],
+    "student_creator_distraction": [
+      19,
+      22,
+      25
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "version": "V6",
+  "researchers_stance": "Additional run confirms improving conversion trajectory under the specified audience constraints.",
+  "exec_summary": "This constrained run reached majority conversion-confidence by V6 with reduced dealbreaker rates.",
+  "findings": "<ul><li><strong>Core framing held</strong>: reducing scroll without deletion remained persuasive.</li><li><strong>Trust controls adoption</strong>: privacy and proof language continue to influence uptake.</li></ul>",
+  "recommendations": "<ol><li><strong>Keep mechanism explicit</strong>.</li><li><strong>Add stronger evidence and privacy defaults</strong>.</li></ol>",
+  "qualitative_themes": "<ul><li><strong>Middle path beats bans</strong>.</li><li><strong>Social accountability needs trust</strong>.</li></ul>",
+  "clarity_notes": "Clarity improved round-over-round, with V6 skewing toward nailed_it.",
+  "invalidated_segments": [],
+  "appendix_notes": "Generated from constrained synthetic run.",
+  "bucket_deep_dives": {}
+}

@@ -1,0 +1,264 @@
+{
+  "buckets": [
+    "compulsive_night_scroller",
+    "deadline_derailer",
+    "sleep_deprived_rebounder",
+    "academic_probation_risk",
+    "anxiety_scroll_loop"
+  ],
+  "per_bucket": 12,
+  "females_per_bucket": 9,
+  "males_per_bucket": 3,
+  "females_per_age_band": null,
+  "age_bands": [
+    [
+      18,
+      20
+    ],
+    [
+      21,
+      23
+    ],
+    [
+      24,
+      26
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      31,
+      34
+    ]
+  ],
+  "female_allocations": [
+    {
+      "bucket": "compulsive_night_scroller",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "compulsive_night_scroller",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "compulsive_night_scroller",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "compulsive_night_scroller",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "compulsive_night_scroller",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "deadline_derailer",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deadline_derailer",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deadline_derailer",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deadline_derailer",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "deadline_derailer",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "sleep_deprived_rebounder",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "sleep_deprived_rebounder",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "sleep_deprived_rebounder",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "sleep_deprived_rebounder",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "sleep_deprived_rebounder",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "academic_probation_risk",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "academic_probation_risk",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "academic_probation_risk",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "academic_probation_risk",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "academic_probation_risk",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    },
+    {
+      "bucket": "anxiety_scroll_loop",
+      "age_band": [
+        18,
+        20
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "anxiety_scroll_loop",
+      "age_band": [
+        21,
+        23
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "anxiety_scroll_loop",
+      "age_band": [
+        24,
+        26
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "anxiety_scroll_loop",
+      "age_band": [
+        27,
+        30
+      ],
+      "count": 2
+    },
+    {
+      "bucket": "anxiety_scroll_loop",
+      "age_band": [
+        31,
+        34
+      ],
+      "count": 1
+    }
+  ],
+  "male_ages": {
+    "compulsive_night_scroller": [
+      19,
+      22,
+      25
+    ],
+    "deadline_derailer": [
+      19,
+      22,
+      25
+    ],
+    "sleep_deprived_rebounder": [
+      19,
+      22,
+      25
+    ],
+    "academic_probation_risk": [
+      19,
+      22,
+      25
+    ],
+    "anxiety_scroll_loop": [
+      19,
+      22,
+      25
+    ]
+  }
+}

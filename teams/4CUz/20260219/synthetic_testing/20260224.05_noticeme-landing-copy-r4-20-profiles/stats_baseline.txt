@@ -1,0 +1,44 @@
+
+============================================================
+EVALUATION RESULTS (n=20)
+============================================================
+
+OVERALL:
+  resonance: 20% agree+  |  {'strongly_disagree': 7, 'disagree': 6, 'neutral': 3, 'agree': 3, 'strongly_agree': 1}
+  intent: 20% agree+  |  {'strongly_disagree': 4, 'disagree': 6, 'neutral': 6, 'agree': 1, 'strongly_agree': 3}
+  conversion_confidence: 5% agree+  |  {'strongly_disagree': 6, 'disagree': 7, 'neutral': 6, 'agree': 1, 'strongly_agree': 0}
+  dealbreakers: 20% (4/20)
+  clarity: {'wrong': 5, 'nailed_it': 7, 'partial': 8}
+  price: {'too_expensive': 8, 'fair': 10, 'good_deal': 2}
+
+PER BUCKET:
+
+  deletion_rebounder (n=4):
+    resonance: 25% agree+
+    intent: 50% agree+
+    conversion_confidence: 0% agree+
+    dealbreakers: 25%
+
+  privacy_guarded (n=4):
+    resonance: 0% agree+
+    intent: 0% agree+
+    conversion_confidence: 0% agree+
+    dealbreakers: 0%
+
+  self_control_fatigued (n=4):
+    resonance: 25% agree+
+    intent: 0% agree+
+    conversion_confidence: 0% agree+
+    dealbreakers: 25%
+
+  skeptical_optimizer (n=4):
+    resonance: 0% agree+
+    intent: 50% agree+
+    conversion_confidence: 25% agree+
+    dealbreakers: 25%
+
+  social_motivated (n=4):
+    resonance: 50% agree+
+    intent: 0% agree+
+    conversion_confidence: 0% agree+
+    dealbreakers: 25%

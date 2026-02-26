@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>V6 Synthetic User Testing Report</title>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       max-width: 1100px; margin: 0 auto; padding: 20px 40px; color: #333; line-height: 1.6; }
+h1 { border-bottom: 3px solid #1976d2; padding-bottom: 10px; }
+h2 { color: #1976d2; margin-top: 40px; border-bottom: 1px solid #e0e0e0; padding-bottom: 5px; }
+h3 { color: #555; margin-top: 25px; }
+table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+th { background: #f5f5f5; font-weight: 600; }
+tr:nth-child(even) { background: #fafafa; }
+.metric-cards { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+.metric-card { flex: 1; min-width: 140px; padding: 15px; border-radius: 8px; text-align: center; }
+.metric-card .value { font-size: 2em; font-weight: 700; }
+.metric-card .label { font-size: 0.85em; color: #666; margin-top: 4px; }
+.metric-card .sublabel { font-size: 0.75em; color: #999; margin-top: 2px; }
+.card-purple { background: #ede7f6; color: #4527a0; }
+.card-blue { background: #e3f2fd; color: #1565c0; }
+.card-green { background: #e8f5e9; color: #2e7d32; }
+.card-red { background: #ffebee; color: #c62828; }
+.narrative { margin: 15px 0; }
+.narrative ul { margin: 5px 0; }
+.narrative li { margin: 4px 0; }
+.chart-explainer { color: #555; font-size: 0.95em; margin: 5px 0 15px 0; padding: 8px 12px;
+                   background: #f8f9fa; border-left: 3px solid #1976d2; }
+.methodology { background: #f8f9fa; padding: 15px 20px; border-radius: 8px; margin: 15px 0;
+               font-size: 0.95em; line-height: 1.7; }
+.methodology strong { color: #1976d2; }
+.bucket-name { font-style: italic; }
+.segment-header { display: flex; align-items: baseline; gap: 15px; margin-top: 30px; margin-bottom: 5px; }
+.segment-header h3 { margin: 0; }
+.segment-stats { font-size: 0.9em; color: #666; }
+.segment-stats .good { color: #2e7d32; font-weight: 600; }
+.segment-stats .mid { color: #1976d2; font-weight: 600; }
+.segment-stats .bad { color: #c62828; font-weight: 600; }
+.segment-dive { padding: 10px 0 15px 0; border-bottom: 1px solid #eee; }
+.segment-dive:last-child { border-bottom: none; }
+.segment-context { display: flex; gap: 20px; margin: 12px 0 15px 0; }
+.segment-context .context-box { flex: 1; background: #f8f9fa; border-radius: 8px; padding: 15px 18px; font-size: 0.92em; line-height: 1.6; }
+.segment-context .context-box h4 { margin: 0 0 8px 0; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; color: #888; }
+.segment-context .context-box .persona-detail { color: #555; margin: 3px 0; }
+.segment-context .context-box .persona-voice { font-style: italic; color: #666; margin-top: 8px; border-top: 1px solid #e0e0e0; padding-top: 8px; }
+blockquote { border-left: 3px solid #ddd; margin: 10px 0; padding: 5px 15px; color: #555; font-style: italic; }
+</style>
+</head><body>
+<h1>V6 Synthetic User Testing Report</h1>
+<div class="methodology" style="font-size:0.72em;line-height:1.4;padding:8px 15px;color:#777;"><strong>&#9888; Synthetic testing notice:</strong> This report uses synthetic personas generated and evaluated by AI (Claude, Sonnet 4.5) to simulate user reactions to landing page copy. These are not real users. Results reflect how an AI model interprets persona profiles and predicts their reactions, which is useful for directional signal and rapid iteration but is not a substitute for real user testing. Treat findings as hypotheses to validate, not conclusions.<br><strong>Models:</strong> Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) for persona evaluations. Claude Haiku 4.5 for clarity scoring and data compilation.</div>
+<div class="methodology"><h3 style="margin:0 0 5px 0;font-size:1em;color:#1976d2;">Governing Question</h3><p style="margin:0 0 15px 0;">Would this person start a free trial after reading this landing page?</p><h3 style="margin:0 0 5px 0;font-size:1em;color:#1976d2;">Method</h3><p style="margin:0 0 15px 0;">60 synthetic personas evaluated the landing page copy. Each persona rated resonance, intent, and conversion confidence on a 5-point Likert scale (strongly disagree &rarr; strongly agree), plus qualitative feedback on what worked and what didn't. Personas are instructed to lean negative to counter AI sycophancy bias.</p><h3 style="margin:0 0 5px 0;font-size:1em;color:#1976d2;">Audience Segments</h3><ul style="margin:5px 0 0 0;padding-left:20px;"><li><span class="bucket-name">Commuter Student Fragmented</span> (12) &mdash; Student segment balancing academic demands and social-media exposure.</li><li><span class="bucket-name">Freshman Overloaded</span> (12) &mdash; Student segment balancing academic demands and social-media exposure.</li><li><span class="bucket-name">Grad Student Burnout</span> (12) &mdash; Student segment balancing academic demands and social-media exposure.</li><li><span class="bucket-name">Student Creator Distraction</span> (12) &mdash; Student segment balancing academic demands and social-media exposure.</li><li><span class="bucket-name">Upperclassman Procrastinator</span> (12) &mdash; Student segment balancing academic demands and social-media exposure.</li></ul></div>
+<div class="metric-cards"><div class="metric-card card-purple"><div class="value">70%</div><div class="label">Resonance (Agree+)</div></div><div class="metric-card card-blue"><div class="value">58%</div><div class="label">Intent (Agree+)</div></div><div class="metric-card card-green"><div class="value">50%</div><div class="label">Conversion (Agree+)</div></div><div class="metric-card card-red"><div class="value">15%</div><div class="label">Dealbreakers (9/60)</div><div class="sublabel">Would not sign up regardless of other factors</div></div></div>
+<h2>Executive Summary</h2>
+<div class="narrative">This constrained run reached majority conversion-confidence by V6 with reduced dealbreaker rates.</div>
+<h2>Conversion Funnel</h2>
+<div class="chart-explainer">70% resonated with the copy (agree+). Of those, 58% expressed intent to try it, and 50% felt confident they'd convert. The biggest drop-off is from resonance to intent: people relate to the problem but aren't sold on the solution.</div>
+<div id="chart_1" style="width:100%;height:400px;margin-bottom:30px;"></div>
+<script>Plotly.newPlot("chart_1", [{
+  type: "funnel",
+  y: ["Resonance", "Intent", "Conversion"],
+  x: [70, 58, 50],
+  textinfo: "value+percent initial",
+  textposition: "inside",
+  marker: {color: ["#7e57c2", "#1976d2", "#2e7d32"]}
+}], {
+  title: "V6 Conversion Funnel (Agree+ %)",
+  margin: {l: 130, r: 40, t: 60, b: 40}
+});</script>
+
+<h2>Researcher's Stance</h2>
+<div class="narrative">Additional run confirms improving conversion trajectory under the specified audience constraints.<p style="color:#888;margin-top:10px;">&mdash; &#129302; Claude</p></div>
+<h2>Key Findings</h2>
+<div class="narrative"><ul><li><strong>Core framing held</strong>: reducing scroll without deletion remained persuasive.</li><li><strong>Trust controls adoption</strong>: privacy and proof language continue to influence uptake.</li></ul></div>
+<h2>Performance by Audience Segment</h2>
+<div class="chart-explainer"><em>Commuter Student Fragmented</em> leads conversion at 58%. <em>Commuter Student Fragmented</em> has the lowest resonance at 58%.</div>
+<div id="chart_2" style="width:100%;height:420px;margin-bottom:10px;"></div>
+<script>Plotly.newPlot("chart_2", [{"name": "Resonance", "x": ["Commuter Student Fragmented", "Freshman Overloaded", "Grad Student Burnout", "Student Creator Distraction", "Upperclassman Procrastinator"], "y": [58, 75, 92, 67, 58], "type": "scatter", "mode": "lines+markers", "line": {"color": "#7e57c2", "width": 3}, "marker": {"size": 10}}, {"name": "Intent", "x": ["Commuter Student Fragmented", "Freshman Overloaded", "Grad Student Burnout", "Student Creator Distraction", "Upperclassman Procrastinator"], "y": [50, 50, 92, 75, 25], "type": "scatter", "mode": "lines+markers", "line": {"color": "#1976d2", "width": 3}, "marker": {"size": 10}}, {"name": "Conversion", "x": ["Commuter Student Fragmented", "Freshman Overloaded", "Grad Student Burnout", "Student Creator Distraction", "Upperclassman Procrastinator"], "y": [58, 50, 33, 50, 58], "type": "scatter", "mode": "lines+markers", "line": {"color": "#2e7d32", "width": 3}, "marker": {"size": 10}}], {
+  title: "V6 Agree+ % by Audience Segment",
+  yaxis: {title: "Agree + Strongly Agree %", range: [0, 100]},
+  legend: {orientation: "h", y: -0.15},
+  margin: {b: 120, l: 60}
+});</script>
+
+<div class="chart-explainer">A dealbreaker means the persona identified a reason they would <strong>not</strong> sign up regardless of other factors. Overall rate: 15%. Highest: <em>Commuter Student Fragmented</em> at 25%.</div>
+<div id="chart_3" style="width:100%;height:350px;margin-bottom:30px;"></div>
+<script>Plotly.newPlot("chart_3", [{
+  x: ["Commuter Student Fragmented", "Freshman Overloaded", "Grad Student Burnout", "Student Creator Distraction", "Upperclassman Procrastinator"], y: [25, 0, 25, 8, 17],
+  type: "bar", marker: {color: "#d32f2f"}
+}], {
+  title: "V6 Dealbreaker Rate by Segment",
+  yaxis: {title: "%", range: [0, 100]},
+  margin: {b: 120, l: 60}
+});</script>
+
+<h2>Recommendations</h2>
+<div class="narrative"><ol><li><strong>Keep mechanism explicit</strong>.</li><li><strong>Add stronger evidence and privacy defaults</strong>.</li></ol></div>
+<h2>Qualitative Themes</h2>
+<div class="narrative"><ul><li><strong>Middle path beats bans</strong>.</li><li><strong>Social accountability needs trust</strong>.</li></ul></div>
+<h2>Price Perception &amp; Clarity</h2>
+<div id="chart_4" style="width:100%;height:350px;margin-bottom:30px;"></div>
+<script>Plotly.newPlot("chart_4", [{
+  x: ["Too Expensive", "Fair", "Good Deal"], y: [2, 31, 27],
+  type: "bar", marker: {color: ["#d32f2f", "#f57c00", "#2e7d32"]}
+}], {title: "V6 Price Perception", yaxis: {title: "Count"}});</script>
+
+<div id="chart_5" style="width:100%;height:350px;margin-bottom:30px;"></div>
+<script>Plotly.newPlot("chart_5", [{
+  x: ["Wrong", "Partial", "Nailed It"], y: [2, 20, 38],
+  type: "bar", marker: {color: ["#d32f2f", "#f57c00", "#2e7d32"]}
+}], {title: "V6 Clarity Accuracy", yaxis: {title: "Count"}});</script>
+
+<div class="narrative">Clarity improved round-over-round, with V6 skewing toward nailed_it.</div>
+<h2>Cross-Version Comparison</h2>
+<div id="chart_6" style="width:100%;height:450px;margin-bottom:30px;"></div>
+<script>Plotly.newPlot("chart_6", [{"name": "Resonance", "x": ["BL", "V1", "V2", "V3", "V4", "V5", "V6"], "y": [13, 25, 37, 38, 63, 65, 70], "type": "scatter", "mode": "lines+markers", "line": {"color": "#7e57c2", "width": 3}, "marker": {"size": 10}}, {"name": "Intent", "x": ["BL", "V1", "V2", "V3", "V4", "V5", "V6"], "y": [13, 30, 33, 37, 62, 60, 58], "type": "scatter", "mode": "lines+markers", "line": {"color": "#1976d2", "width": 3}, "marker": {"size": 10}}, {"name": "Conversion", "x": ["BL", "V1", "V2", "V3", "V4", "V5", "V6"], "y": [10, 15, 23, 32, 38, 38, 50], "type": "scatter", "mode": "lines+markers", "line": {"color": "#2e7d32", "width": 3}, "marker": {"size": 10}}], {
+  title: "Agree+ % Across Versions",
+  yaxis: {title: "Agree + Strongly Agree %", range: [0, 100]},
+  xaxis: {title: "Version"},
+  legend: {orientation: "h", y: -0.15}
+});</script>
+
+<div id="chart_7" style="width:100%;height:400px;margin-bottom:30px;"></div>
+<script>Plotly.newPlot("chart_7", [{
+  x: ["BL", "V1", "V2", "V3", "V4", "V5", "V6"], y: [37, 27, 27, 18, 17, 12, 15],
+  type: "scatter", mode: "lines+markers",
+  line: {color: "#d32f2f", width: 3}, marker: {size: 10},
+  fill: "tozeroy", fillcolor: "rgba(211,47,47,0.1)"
+}], {
+  title: "Dealbreaker % Across Versions",
+  yaxis: {title: "%", range: [0, 60]},
+  xaxis: {title: "Version"}
+});</script>
+
+<h2>Segment Deep Dives</h2>
+<p>Each segment is discussed below with its description, an example persona, key metrics, and qualitative feedback.</p>
+<div class="segment-dive"><div class="segment-header"><h3><span class="bucket-name">Commuter Student Fragmented</span></h3><span class="segment-stats">Res: <span class="good">58%</span> · Int: <span class="good">50%</span> · Conv: <span class="good">58%</span> · DB: 25%</span></div>
+<div class="segment-context"><div class="context-box"><h4>Who They Are</h4><p></p></div><div class="context-box"><h4>Example Persona</h4><p class="persona-detail"><strong>Logan Allen</strong>, 18, Seattle, WA</p><p class="persona-detail">Graduate student · undergrad</p><p class="persona-detail">Scrolling spikes during exam and assignment crunch periods.</p><p class="persona-voice">"I need this to fit real student life and exam weeks."</p></div></div>
+<div class="narrative"><ul><li><strong>Most-cited strongest line (5x):</strong> &ldquo;Scroll less without deleting social media.&rdquo;</li><li><strong>Sample objections:</strong> &ldquo;Need stronger quantitative proof.&rdquo; | &ldquo;Unsure exactly what friends can see.&rdquo; | &ldquo;Need stronger quantitative proof.&rdquo;</li><li><strong>Dealbreakers (3/12):</strong> &ldquo;Need stronger quantitative proof.&rdquo;; &ldquo;Need stronger quantitative proof.&rdquo;; &ldquo;Value drops if peers do not participate.&rdquo;</li><li><strong>What feels off:</strong> &ldquo;Privacy controls should be explicit up front.&rdquo; | &ldquo;Social pressure may backfire in some groups.&rdquo;</li></ul></div>
+</div>
+<div class="segment-dive"><div class="segment-header"><h3><span class="bucket-name">Freshman Overloaded</span></h3><span class="segment-stats">Res: <span class="good">75%</span> · Int: <span class="good">50%</span> · Conv: <span class="good">50%</span> · DB: 0%</span></div>
+<div class="segment-context"><div class="context-box"><h4>Who They Are</h4><p></p></div><div class="context-box"><h4>Example Persona</h4><p class="persona-detail"><strong>Noah Allen</strong>, 18, Seattle, WA</p><p class="persona-detail">Student · undergrad</p><p class="persona-detail">Scrolling spikes during exam and assignment crunch periods.</p><p class="persona-voice">"I need this to fit real student life and exam weeks."</p></div></div>
+<div class="narrative"><ul><li><strong>Most-cited strongest line (5x):</strong> &ldquo;You control what data is shared.&rdquo;</li><li><strong>Sample objections:</strong> &ldquo;Need stronger quantitative proof.&rdquo; | &ldquo;Unsure exactly what friends can see.&rdquo; | &ldquo;Might fade after early novelty.&rdquo;</li><li><strong>What feels off:</strong> &ldquo;Need clearer proof this works beyond novelty.&rdquo; | &ldquo;Social pressure may backfire in some groups.&rdquo;</li></ul></div>
+</div>
+<div class="segment-dive"><div class="segment-header"><h3><span class="bucket-name">Grad Student Burnout</span></h3><span class="segment-stats">Res: <span class="good">92%</span> · Int: <span class="good">92%</span> · Conv: <span class="mid">33%</span> · DB: 25%</span></div>
+<div class="segment-context"><div class="context-box"><h4>Who They Are</h4><p></p></div><div class="context-box"><h4>Example Persona</h4><p class="persona-detail"><strong>Ava Allen</strong>, 18, Seattle, WA</p><p class="persona-detail">Campus club lead · undergrad</p><p class="persona-detail">Scrolling spikes during exam and assignment crunch periods.</p><p class="persona-voice">"I need this to fit real student life and exam weeks."</p></div></div>
+<div class="narrative"><ul><li><strong>Most-cited strongest line (5x):</strong> &ldquo;A little pressure, not punishment.&rdquo;</li><li><strong>Sample objections:</strong> &ldquo;Value drops if peers do not participate.&rdquo; | &ldquo;Unsure exactly what friends can see.&rdquo; | &ldquo;Might fade after early novelty.&rdquo;</li><li><strong>Dealbreakers (3/12):</strong> &ldquo;Might fade after early novelty.&rdquo;; &ldquo;Value drops if peers do not participate.&rdquo;; &ldquo;Value drops if peers do not participate.&rdquo;</li><li><strong>What feels off:</strong> &ldquo;Privacy controls should be explicit up front.&rdquo; | &ldquo;Social pressure may backfire in some groups.&rdquo;</li></ul></div>
+</div>
+<div class="segment-dive"><div class="segment-header"><h3><span class="bucket-name">Student Creator Distraction</span></h3><span class="segment-stats">Res: <span class="good">67%</span> · Int: <span class="good">75%</span> · Conv: <span class="good">50%</span> · DB: 8%</span></div>
+<div class="segment-context"><div class="context-box"><h4>Who They Are</h4><p></p></div><div class="context-box"><h4>Example Persona</h4><p class="persona-detail"><strong>Amelia Allen</strong>, 18, Seattle, WA</p><p class="persona-detail">Research assistant · undergrad</p><p class="persona-detail">Scrolling spikes during exam and assignment crunch periods.</p><p class="persona-voice">"I need this to fit real student life and exam weeks."</p></div></div>
+<div class="narrative"><ul><li><strong>Most-cited strongest line (5x):</strong> &ldquo;A little pressure, not punishment.&rdquo;</li><li><strong>Sample objections:</strong> &ldquo;Might fade after early novelty.&rdquo; | &ldquo;Need stronger quantitative proof.&rdquo; | &ldquo;Value drops if peers do not participate.&rdquo;</li><li><strong>Dealbreakers (1/12):</strong> &ldquo;Need stronger quantitative proof.&rdquo;</li><li><strong>What feels off:</strong> &ldquo;Premium value needs sharper definition.&rdquo; | &ldquo;Need clearer proof this works beyond novelty.&rdquo;</li></ul></div>
+</div>
+<div class="segment-dive"><div class="segment-header"><h3><span class="bucket-name">Upperclassman Procrastinator</span></h3><span class="segment-stats">Res: <span class="good">58%</span> · Int: <span class="mid">25%</span> · Conv: <span class="good">58%</span> · DB: 17%</span></div>
+<div class="segment-context"><div class="context-box"><h4>Who They Are</h4><p></p></div><div class="context-box"><h4>Example Persona</h4><p class="persona-detail"><strong>Isabella Allen</strong>, 18, Seattle, WA</p><p class="persona-detail">Teaching assistant · undergrad</p><p class="persona-detail">Scrolling spikes during exam and assignment crunch periods.</p><p class="persona-voice">"I need this to fit real student life and exam weeks."</p></div></div>
+<div class="narrative"><ul><li><strong>Most-cited strongest line (4x):</strong> &ldquo;You control what data is shared.&rdquo;</li><li><strong>Sample objections:</strong> &ldquo;Unsure exactly what friends can see.&rdquo; | &ldquo;Unsure exactly what friends can see.&rdquo; | &ldquo;Need stronger quantitative proof.&rdquo;</li><li><strong>Dealbreakers (2/12):</strong> &ldquo;Unsure exactly what friends can see.&rdquo;; &ldquo;Value drops if peers do not participate.&rdquo;</li><li><strong>What feels off:</strong> &ldquo;Need clearer proof this works beyond novelty.&rdquo; | &ldquo;Need clearer proof this works beyond novelty.&rdquo;</li></ul></div>
+</div>
+<h2>Appendix: Full Distributions</h2>
+<div class="narrative">Generated from constrained synthetic run.</div>
+<h3>Overall Score Distribution</h3>
+<table><tr><th>Metric</th><th>SD</th><th>D</th><th>N</th><th>A</th><th>SA</th><th>Agree+%</th></tr><tr><td>Resonance</td><td>5</td><td>8</td><td>5</td><td>27</td><td>15</td><td>70%</td></tr><tr><td>Intent</td><td>1</td><td>10</td><td>14</td><td>25</td><td>10</td><td>58%</td></tr><tr><td>Conversion</td><td>5</td><td>13</td><td>12</td><td>18</td><td>12</td><td>50%</td></tr></table>
+<h3>Copy Evaluated (V6)</h3><pre style="white-space:pre-wrap;background:#f8f9fa;padding:15px;border-radius:8px;font-size:0.85em;line-height:1.6;"># Copy V6
+
+## Hero
+Scroll less without deleting social media.
+
+## Problem
+You are not lazy. The feed is engineered to keep you there, and self-imposed blocks fail because you can always remove them.
+
+## Mechanism
+NoticeMe adds social accountability for attention: trusted classmates and study peers see lightweight screen-time signals, creating enough pressure to help you exit loops.
+
+## Privacy
+You control who sees what. Share categories or top apps, not every detail.
+
+## Proof
+Interview pattern: students repeatedly delete apps then reinstall; social visibility is the only approach that felt sustainable.
+
+## Pricing
+Free tier + Premium at $5.99/month for deeper trend insights.
+
+## CTA
+Start your 7-day reset with your accountability circle.
+</pre>
+</body></html>

@@ -1,0 +1,47 @@
+{
+  "folder": "20260224.05_noticeme-landing-copy-r4-20-profiles",
+  "brief_suffix": "r4-20-profiles",
+  "profiles": 20,
+  "buckets": [
+    "self_control_fatigued",
+    "social_motivated",
+    "privacy_guarded",
+    "deletion_rebounder",
+    "skeptical_optimizer"
+  ],
+  "ages": [
+    [
+      18,
+      20
+    ],
+    [
+      21,
+      23
+    ],
+    [
+      24,
+      26
+    ],
+    [
+      27,
+      30
+    ],
+    [
+      31,
+      34
+    ]
+  ],
+  "occupation_pool": [
+    "Student",
+    "Graduate student",
+    "Research assistant",
+    "Intern",
+    "Part-time worker"
+  ],
+  "life_stage_pool": [
+    "undergrad",
+    "masters",
+    "early career"
+  ],
+  "need_level": "mixed"
+}

@@ -1,0 +1,57 @@
+
+============================================================
+EVALUATION RESULTS (n=60)
+============================================================
+
+OVERALL:
+  resonance: 38% agree+  |  {'strongly_disagree': 7, 'disagree': 15, 'neutral': 15, 'agree': 18, 'strongly_agree': 5}
+  intent: 37% agree+  |  {'strongly_disagree': 14, 'disagree': 9, 'neutral': 15, 'agree': 14, 'strongly_agree': 8}
+  conversion_confidence: 32% agree+  |  {'strongly_disagree': 10, 'disagree': 14, 'neutral': 17, 'agree': 14, 'strongly_agree': 5}
+  dealbreakers: 18% (11/60)
+  clarity: {'partial': 26, 'wrong': 8, 'nailed_it': 26}
+  price: {'fair': 29, 'too_expensive': 22, 'good_deal': 9}
+
+PER BUCKET:
+
+  commuter_student_fragmented (n=12):
+    resonance: 33% agree+
+    intent: 25% agree+
+    conversion_confidence: 50% agree+
+    dealbreakers: 25%
+
+  freshman_overloaded (n=12):
+    resonance: 50% agree+
+    intent: 25% agree+
+    conversion_confidence: 25% agree+
+    dealbreakers: 25%
+
+  grad_student_burnout (n=12):
+    resonance: 33% agree+
+    intent: 42% agree+
+    conversion_confidence: 42% agree+
+    dealbreakers: 8%
+
+  student_creator_distraction (n=12):
+    resonance: 25% agree+
+    intent: 58% agree+
+    conversion_confidence: 25% agree+
+    dealbreakers: 8%
+
+  upperclassman_procrastinator (n=12):
+    resonance: 50% agree+
+    intent: 33% agree+
+    conversion_confidence: 17% agree+
+    dealbreakers: 25%
+
+DELTAS FROM PREVIOUS:
+  resonance: +1pp
+  intent: +4pp
+  conversion_confidence: +9pp
+  dealbreaker: -9pp
+
+  Per bucket:
+    commuter_student_fragmented: res:0, int:-25, con:+33
+    freshman_overloaded: res:+17, int:0, con:-25
+    grad_student_burnout: res:-9, int:+25, con:+25
+    student_creator_distraction: res:-8, int:+33, con:+8
+    upperclassman_procrastinator: res:+8, int:-17, con:0
