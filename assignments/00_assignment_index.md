@@ -4,8 +4,6 @@ All assignments for Startup Studio: AI-Accelerated Building & Validation (Spring
 
 Each assignment links to a detailed description with submission instructions. Deck PDFs link to the class slides where the assignment was introduced.
 
-**[Team Repo Checklist](repo-checklist.md)** — everything your team folder should contain, organized by milestone.
-
 ---
 
 ## Week 3: Team Formation + Divergent Thinking

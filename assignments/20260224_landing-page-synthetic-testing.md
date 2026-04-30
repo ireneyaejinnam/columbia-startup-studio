@@ -17,7 +17,7 @@ Include the following:
 
 ### 1. Polished Brand Position
 
-Your final brand position document, updated from the draft you started in class on Feb 19. Use the template: [template_brand-position.md](../templates/template_brand-position.md)
+Your final brand position document, updated from the draft you started in class on Feb 19. Use the template: [template_brand-position.md](../resources/template_brand-position.md)
 
 This should reflect any revisions from synthetic testing feedback.
 

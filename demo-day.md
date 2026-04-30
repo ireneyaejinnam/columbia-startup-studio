@@ -33,7 +33,7 @@ On May 12, they will present VC-style pitches with live demos.
 
 ## About the Course
 
-[COMS4995-011](resources/course_syllabus.md) is designed as a blend of three disciplines: UX research, startup hacking, and modern AI. The course is structured as a studio-style environment, emphasizing real building, iteration, and critique, and pushes students to practice cross-functional concepts in the service of building products that people actually want to use. 
+[COMS4995-011](resources/course_syllabus.md) is designed as a blend of three disciplines: UX research, startup hacking, and LLMs. The course is structured as a studio-style environment, emphasizing real building, iteration, and critique, and pushes students to practice cross-functional concepts in the service of building products that people actually want to use. 
 
 **Instructor:** Ken St. Clair, Adjunct Assistant Professor of Computer Science
 
