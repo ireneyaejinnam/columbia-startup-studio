@@ -80,8 +80,8 @@ Once the core flow is validated and we have signal on which categories users car
 **Status: 25 sign ups**
 
 **Channels active as of March 3, 2026:**
-- Landing page live at https://sift-landing-page.lovable.app/
-- Demand gen strategy drafted and ready to execute (see `demand_gen_strategy.md`)
+- Landing page live at https://siftapp.site/
+- Demand gen strategy drafted and ready to execute (see `demand_test_plan.md`)
 
 **Channels launching this week (Week 1: Mar 3–10):**
 - Organic social: blast on founder social media pages
