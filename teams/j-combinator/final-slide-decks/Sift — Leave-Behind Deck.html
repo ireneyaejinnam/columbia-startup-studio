@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sift — Leave-Behind Deck</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF9F7;
+    --fg: #1A1F2B;
+    --muted: #6B6F76;
+    --subtle: #8E9196;
+    --border: #E8E6E3;
+    --primary: #5A7BAF;
+    --primary-light: rgba(90, 123, 175, 0.10);
+    --primary-ring: rgba(90, 123, 175, 0.32);
+    --accent: #E8AA6A;
+    --accent-soft: rgba(232, 170, 106, 0.14);
+    --good: #4F8A65;
+    --warn: #C97A4A;
+    --card: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%; width: 100%;
+    background: var(--bg); color: var(--fg);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .deck { position: relative; width: 100vw; height: 100vh; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: 3vh 7vw 3vh;
+    opacity: 0; pointer-events: none;
+    transition: opacity 360ms ease;
+    overflow: hidden;
+  }
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 1.8vh; }
+  .brand img { height: 38px; width: auto; }
+  .brand-name { font-family: "DM Serif Display", serif; font-size: 22px; color: var(--fg); letter-spacing: -0.5px; }
+
+  .chrome {
+    position: fixed; bottom: 22px; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 28px;
+    font-size: 12px; color: var(--subtle);
+    pointer-events: none;
+  }
+  .chrome-dots { display: flex; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--border); }
+  .dot.active { background: var(--primary); }
+
+  .eyebrow { font-size: 12px; color: var(--primary); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  h2 {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: clamp(30px, 3.8vw, 48px);
+    line-height: 1.1; letter-spacing: -0.7px; color: var(--fg);
+    margin-bottom: 10px; max-width: 56ch;
+  }
+  h2.wide { max-width: 64ch; }
+  .lead { font-size: 20px; color: var(--muted); line-height: 1.55; max-width: 920px; margin-bottom: 8px; }
+  .solution-sub {
+    margin-bottom: 16px; max-width: 60ch;
+    font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: clamp(20px, 1.8vw, 28px); color: var(--muted); letter-spacing: -0.3px;
+  }
+  .flywheel {
+    margin-top: 24px; max-width: 1100px;
+    font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: clamp(16px, 1.4vw, 20px); color: var(--muted); letter-spacing: 0.2px;
+  }
+  .flywheel strong { color: var(--primary); font-style: normal; font-weight: 600; }
+  .lead strong { color: var(--fg); font-weight: 600; }
+
+  /* TITLE */
+  .s-title { justify-content: center; align-items: center; text-align: center; }
+  .s-title .hero-logo { height: 130px; margin-bottom: 14px; margin-top: -6vh; }
+  .s-title h1 {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.05; letter-spacing: -1.2px; color: var(--fg);
+    margin-bottom: 18px; max-width: 18ch;
+  }
+  .s-title h1 em { font-style: italic; color: var(--primary); }
+  .s-title .tagline { font-size: 22px; color: var(--muted); font-weight: 400; max-width: 760px; line-height: 1.4; }
+  .s-title .byline { margin-top: 36px; font-size: 13px; color: var(--subtle); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* RASKIN */
+  .s-raskin { justify-content: center; align-items: stretch; }
+  .s-raskin .raskin-eyebrow {
+    font-size: 12px; color: var(--primary); font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .s-raskin .raskin-pair {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 56px; max-width: 1300px;
+  }
+  .s-raskin .raskin-line {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+    padding: 28px 32px; border: 1px solid var(--border); border-radius: 14px;
+    background: var(--card);
+  }
+  .s-raskin .raskin-line.tomorrow { border-color: var(--primary-ring); background: var(--primary-light); }
+  .s-raskin .raskin-line .raskin-copy {
+    font-family: "DM Serif Display", serif; font-size: clamp(34px, 3.6vw, 54px);
+    line-height: 1.12; letter-spacing: -0.6px;
+  }
+  .s-raskin .raskin-line em { font-style: italic; color: var(--primary); }
+  .s-raskin .raskin-when {
+    font-family: "Inter", sans-serif; font-weight: 700; font-size: 13px;
+    color: var(--accent); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .s-raskin .raskin-line.tomorrow .raskin-when { color: var(--primary); }
+  .s-raskin .raskin-foot {
+    margin-top: 36px; font-size: 18px; color: var(--muted); line-height: 1.5; max-width: 64ch;
+    text-align: center; align-self: center;
+  }
+
+  /* EXEC SUMMARY */
+  .exec-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; max-width: 1200px; margin-top: 12px;
+  }
+  .exec-block {
+    padding: 22px 24px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 14px;
+  }
+  .exec-block .ex-tag {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .exec-block .ex-h {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 22px; letter-spacing: -0.4px; margin-bottom: 8px;
+  }
+  .exec-block p { font-size: 15px; color: var(--muted); line-height: 1.55; }
+  .exec-block p strong { color: var(--fg); font-weight: 600; }
+
+  /* PROBLEM */
+  .stats-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 4px; max-width: 1100px; }
+  .stat-block { padding: 24px 28px; border-radius: 14px; background: var(--card); border: 1px solid var(--border); }
+  .stat-big { font-family: "DM Serif Display", serif; font-size: clamp(54px, 7vw, 96px); color: var(--primary); line-height: 1; margin-bottom: 10px; letter-spacing: -1.5px; }
+  .stat-copy { font-size: 16px; color: var(--fg); line-height: 1.4; }
+  .stat-copy em { color: var(--muted); font-style: italic; }
+
+  .quote-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 22px; max-width: 1200px; }
+  .quote-card {
+    padding: 24px 26px; border-radius: 14px; background: var(--card);
+    border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  }
+  .quote-card.alt { border-left-color: var(--primary); }
+  .quote-card p {
+    font-family: "DM Serif Display", serif; font-style: italic; font-weight: 400;
+    font-size: clamp(18px, 1.55vw, 22px); line-height: 1.35; color: var(--fg);
+    margin-bottom: 10px;
+  }
+  .quote-card cite { font-style: normal; font-size: 13px; color: var(--muted); letter-spacing: 0.3px; font-weight: 500; }
+
+  /* WHY NOW / 3-COL */
+  .why-now, .lanes, .pos-grid, .solution-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 22px; max-width: 1200px;
+  }
+  .wn { padding: 24px 24px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; }
+  .wn h3 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: 24px; margin-bottom: 8px; letter-spacing: -0.4px; }
+  .wn p { font-size: 15.5px; color: var(--muted); line-height: 1.55; }
+  .wn p strong { color: var(--fg); font-weight: 600; }
+
+  /* SOLUTION */
+  .sol { padding: 28px 24px; border-radius: 14px; background: var(--card); border: 1px solid var(--border); }
+  .sol .sol-num {
+    display: inline-block; width: 32px; height: 32px; border-radius: 9999px;
+    background: var(--primary); color: white; text-align: center; line-height: 32px;
+    font-weight: 700; font-size: 14px; margin-bottom: 12px;
+  }
+  .sol h3 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: 26px; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .sol p { font-size: 15px; color: var(--muted); line-height: 1.55; }
+  .sol p strong { color: var(--fg); font-weight: 600; }
+
+  /* SCREENS */
+  .screens-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 36px; margin-top: 22px; max-width: 1200px;
+    align-items: start; justify-items: center;
+  }
+  .screen { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; }
+  .phone {
+    position: relative; width: 100%; max-width: 240px;
+    border-radius: 36px; overflow: hidden; background: #000;
+    border: 2px solid #1A1F2B;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 28px 46px -22px rgba(26, 31, 43, 0.32),
+      0 8px 16px -6px rgba(26, 31, 43, 0.18);
+    aspect-ratio: 9 / 19.5;
+  }
+  .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .screen .cap { text-align: center; }
+  .screen .cap-tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    color: var(--primary); background: var(--primary-light);
+    padding: 4px 10px; border-radius: 9999px; letter-spacing: 1.4px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .screen .cap-title { font-family: "DM Serif Display", serif; font-size: 20px; letter-spacing: -0.4px; margin-bottom: 4px; }
+  .screen .cap-sub { font-size: 13px; color: var(--muted); line-height: 1.45; max-width: 30ch; margin: 0 auto; }
+
+  /* LOGO GRID (Slide 8) */
+  .logo-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 22px; max-width: 1300px; }
+  .logo-cell {
+    aspect-ratio: 3 / 2; border: 1px solid var(--border); border-radius: 14px;
+    background: var(--card); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 10px; text-align: center;
+  }
+  .logo-cell img {
+    max-width: 100%; max-height: 64px; object-fit: contain;
+  }
+  .logo-cell .logo-name {
+    font-family: "Inter", sans-serif; font-size: 11px; font-weight: 700;
+    color: var(--muted); letter-spacing: 1.4px; text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .logo-cell .logo-text {
+    font-family: "DM Serif Display", serif; font-size: clamp(16px, 1.4vw, 22px);
+    color: var(--fg); letter-spacing: -0.3px; line-height: 1.1;
+  }
+  .proof-foot {
+    margin-top: 28px; font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: clamp(18px, 1.6vw, 24px); color: var(--fg); max-width: 70ch; line-height: 1.35;
+  }
+  .proof-foot strong { font-style: normal; color: var(--primary); font-weight: 600; }
+
+  /* TASTE-GRAPH (algorithm) — flow */
+  .flow {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px; max-width: 1200px; margin-top: 18px;
+  }
+  .flow-col {
+    padding: 24px 22px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 14px;
+  }
+  .flow-col h3 {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 22px; letter-spacing: -0.4px; margin-bottom: 10px;
+  }
+  .flow-col h3 .step {
+    display: inline-block; font-family: "Inter"; font-weight: 700;
+    font-size: 11px; color: var(--accent); letter-spacing: 1.6px;
+    text-transform: uppercase; margin-bottom: 6px; display: block;
+  }
+  .flow-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .flow-col li { font-size: 15.5px; color: var(--fg); line-height: 1.55; padding-left: 18px; position: relative; }
+  .flow-col li::before {
+    content: ""; width: 6px; height: 6px; background: var(--primary);
+    border-radius: 9999px; position: absolute; left: 4px; top: 8px;
+  }
+  .flow-col li em { color: var(--muted); font-style: italic; }
+
+  /* TASTE-GRAPH — Step 3 worked-example column */
+  .flow-col-example {
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 22px 20px;
+  }
+  .flow-col-example h3 { margin-bottom: 4px; }
+  .swipe-block {
+    padding: 12px 14px; border-left: 3px solid var(--primary);
+    background: var(--primary-light); border-radius: 0 10px 10px 0;
+  }
+  .swipe-gesture {
+    font-size: 14px; color: var(--fg); line-height: 1.45;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;
+  }
+  .sg-arrow {
+    font-family: "DM Serif Display", serif; font-size: 22px;
+    color: var(--primary); line-height: 1; margin-right: 2px;
+  }
+  .sg-action {
+    font-weight: 700; color: var(--primary);
+    text-transform: uppercase; letter-spacing: 1.2px; font-size: 12px;
+  }
+  .sg-event {
+    font-family: "DM Serif Display", serif; font-style: italic;
+    color: var(--fg); font-size: 14.5px; letter-spacing: -0.2px;
+  }
+  .signal-block {
+    padding: 12px 14px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 10px;
+  }
+  .signal-tag {
+    font-size: 10.5px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .signal-list {
+    list-style: none; display: flex; flex-direction: column; gap: 2px;
+  }
+  .signal-list li {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 3px 0; font-size: 14px; color: var(--fg);
+    padding-left: 0; /* override .flow-col li padding */
+  }
+  .signal-list li::before { display: none; } /* override .flow-col li dot */
+  .signal-list li strong {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    color: var(--primary); font-size: 16px; letter-spacing: -0.2px;
+  }
+  .next-card {
+    padding: 12px 14px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 10px;
+  }
+  .next-card .nc-tag {
+    font-size: 10.5px; font-weight: 700; color: var(--good);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .next-card .nc-title {
+    font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: 15px; color: var(--fg); letter-spacing: -0.2px;
+    line-height: 1.3; margin-bottom: 4px;
+  }
+  .next-card .nc-foot {
+    font-size: 12px; color: var(--muted); line-height: 1.4;
+  }
+  .cold-start {
+    margin-top: 4px; font-size: 12.5px; color: var(--muted);
+    line-height: 1.4; font-style: italic;
+  }
+  .cold-start strong {
+    font-style: normal; color: var(--fg); font-weight: 600;
+  }
+
+  /* SLIDE 10 — Learns your taste at every swipe */
+  .gesture-map {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px; max-width: 1300px; margin-top: 10px;
+  }
+  .gm-cell {
+    padding: 16px 18px 18px; border-radius: 16px;
+    background: var(--card); border: 1.5px solid var(--border);
+    display: flex; flex-direction: column; gap: 6px;
+    position: relative; overflow: hidden;
+  }
+  .gm-cell::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--border);
+  }
+  .gm-pos {
+    background: linear-gradient(180deg, var(--primary-light) 0%, var(--card) 70%);
+    border-color: var(--primary-ring);
+  }
+  .gm-pos::before { background: var(--primary); }
+  .gm-neutral { background: var(--card); }
+  .gm-neutral::before { background: var(--subtle); }
+  .gm-neg {
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--card) 70%);
+    border-color: rgba(201, 122, 74, 0.32);
+  }
+  .gm-neg::before { background: var(--warn); }
+  .gm-mute { background: var(--card); border-style: dashed; }
+  .gm-mute::before { background: var(--border); }
+
+  .gm-cell .gm-head {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .gm-pos .gm-head { color: var(--primary); }
+  .gm-neg .gm-head { color: var(--warn); }
+  .gm-mute .gm-head { color: var(--subtle); }
+
+  .gm-cell .gm-icon {
+    font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: 48px; line-height: 1;
+    margin: 2px 0 0;
+  }
+  .gm-pos .gm-icon { color: var(--primary); }
+  .gm-neutral .gm-icon { color: var(--subtle); }
+  .gm-neg .gm-icon { color: var(--warn); }
+  .gm-mute .gm-icon { color: var(--subtle); }
+
+  .gm-cell .gm-name {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 26px; letter-spacing: -0.5px; color: var(--fg);
+    line-height: 1.1;
+  }
+  .gm-cell .gm-effect {
+    font-size: 12.5px; color: var(--muted); line-height: 1.55;
+    margin-top: auto;
+  }
+  .gm-cell .gm-effect strong { color: var(--fg); font-weight: 700; }
+  .gm-pos .gm-effect strong { color: var(--primary); }
+  .gm-neg .gm-effect strong { color: var(--warn); }
+
+  .loop-flow {
+    display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 14px; align-items: stretch;
+    max-width: 1300px; margin-top: 18px;
+  }
+  .loop-step {
+    padding: 14px 18px; border-radius: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 4px;
+    min-height: 110px;
+    box-shadow: 0 8px 24px -16px rgba(26, 31, 43, 0.18);
+    position: relative;
+  }
+  .loop-step .loop-num {
+    position: absolute; top: -14px; left: 22px;
+    width: 32px; height: 32px; border-radius: 9999px;
+    background: var(--primary); color: #fff;
+    font-family: "DM Serif Display", serif; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px -2px rgba(90, 123, 175, 0.55);
+  }
+  .loop-step .ls-tag {
+    font-size: 10.5px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .loop-step .ls-body { font-size: 14.5px; color: var(--fg); line-height: 1.5; }
+  .loop-step .ls-event {
+    font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: 17px; color: var(--fg); letter-spacing: -0.2px;
+    line-height: 1.3; margin-top: 4px;
+  }
+  .loop-step .ls-foot { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .loop-step .signal-list { padding-left: 0; margin-top: 2px; }
+  .loop-arrow {
+    font-family: "DM Serif Display", serif; font-size: 44px;
+    color: var(--accent); line-height: 1; text-align: center;
+    align-self: center;
+  }
+
+  /* Cold-start visual progress bar */
+  .cold-bar {
+    margin-top: 14px; max-width: 1300px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .cold-bar .cb-text {
+    font-size: 13.5px; color: var(--fg); line-height: 1.5;
+  }
+  .cold-bar .cb-text strong { color: var(--primary); font-weight: 700; }
+  .cold-bar .cb-track {
+    position: relative; height: 6px; border-radius: 9999px;
+    background: var(--border);
+    margin: 8px 8px 28px;
+  }
+  .cold-bar .cb-tick { top: 14px; }
+  .cold-bar .cb-fill {
+    position: absolute; inset: 0; border-radius: 9999px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+  }
+  .cold-bar .cb-tick {
+    position: absolute; top: 18px;
+    transform: translateX(-50%);
+    font-size: 11px; color: var(--muted); line-height: 1.35;
+    text-align: center; min-width: 100px;
+  }
+  .cold-bar .cb-tick strong {
+    display: block; font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 15px; color: var(--fg); letter-spacing: -0.2px;
+  }
+  .cold-bar .cb-tick.cb-start { left: 0%; transform: translateX(0); text-align: left; }
+  .cold-bar .cb-tick.cb-start strong { color: var(--accent); }
+  .cold-bar .cb-tick.cb-end { left: 100%; transform: translateX(-100%); text-align: right; }
+  .cold-bar .cb-tick.cb-end strong { color: var(--primary); }
+  .cold-bar .cb-tick span { font-style: italic; }
+
+  /* Keep old class names alive for any legacy reference, but don't use them */
+  .cold-strip {
+    margin-top: 22px; padding: 14px 20px; max-width: 1300px;
+    background: var(--primary-light); border: 1px solid var(--primary-ring);
+    border-radius: 12px; font-size: 14.5px; color: var(--fg); line-height: 1.5;
+  }
+  .cold-strip strong { color: var(--primary); font-weight: 700; }
+
+  /* COMPETITION */
+  .matrix {
+    margin-top: 18px; max-width: 1200px;
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    background: var(--card);
+  }
+  .matrix-row {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .matrix-row:last-child { border-bottom: 0; }
+  .matrix-row > div {
+    padding: 14px 18px; font-size: 14px; color: var(--fg);
+    display: flex; align-items: center; line-height: 1.4;
+  }
+  .matrix-row.head > div {
+    background: var(--bg); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted);
+  }
+  .matrix-row > .col-label { flex-direction: column; align-items: flex-start; gap: 2px; background: var(--bg); }
+  .matrix-row > .col-label .who { font-weight: 600; color: var(--fg); font-size: 14px; }
+  .matrix-row > .col-label .what {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  .matrix-row.row-us { background: var(--primary-light); }
+  .matrix-row.row-us > .col-label { background: var(--primary-light); }
+  .matrix-row.row-us > .col-label .who { color: var(--primary); }
+  .matrix-row.row-us > .col-label .what { color: var(--primary); }
+  .check-y { color: var(--good); font-weight: 700; }
+  .check-n { color: var(--subtle); font-weight: 500; }
+  .preheader {
+    font-family: "DM Serif Display", serif; font-style: italic; font-weight: 400;
+    font-size: clamp(20px, 1.8vw, 28px); color: var(--primary); letter-spacing: -0.4px;
+    margin-bottom: 10px;
+  }
+
+  /* TRACTION slope */
+  .slope {
+    display: flex; align-items: baseline; gap: clamp(20px, 2vw, 36px);
+    font-family: "DM Serif Display", serif; font-size: clamp(72px, 9vw, 140px);
+    line-height: 1; letter-spacing: -3px; margin-top: 14px;
+  }
+  .slope .from { color: var(--muted); }
+  .slope .arrow { color: var(--accent); font-size: 0.7em; }
+  .slope .to { color: var(--primary); }
+  .slope-foot { margin-top: 18px; font-size: 19px; color: var(--fg); line-height: 1.55; max-width: 1100px; }
+  .slope-foot strong { color: var(--primary); font-weight: 700; }
+  .traction-list {
+    list-style: none; display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 28px; max-width: 1200px;
+  }
+  .traction-list.traction-list-2 { grid-template-columns: repeat(2, 1fr); max-width: 1100px; }
+  .traction-list li {
+    padding: 22px 26px; background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; font-size: 16px; color: var(--muted); line-height: 1.55;
+  }
+  .traction-list li strong {
+    display: block; font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 22px; color: var(--primary); margin-bottom: 6px; letter-spacing: -0.3px;
+  }
+
+  /* LANES (biz model) */
+  .lane { padding: 26px 24px; border: 1px solid var(--border); border-radius: 14px; background: var(--card); }
+  .lanes.lanes-roomy { gap: 28px; }
+  .lanes.lanes-roomy .lane { padding: 30px 32px; display: flex; flex-direction: column; }
+  .lanes.lanes-roomy .lane h3 { font-size: 32px; }
+  .lanes.lanes-roomy .lane p { font-size: 17px; line-height: 1.6; }
+  .lane-foot {
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .status-chip {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 9999px;
+  }
+  .status-chip.live { background: var(--good); color: #fff; }
+  .status-chip.target { background: var(--accent-soft); color: var(--warn); }
+  .lane-foot-text { font-size: 13px; color: var(--muted); }
+  .lane .tag {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    color: var(--primary); background: var(--primary-light);
+    padding: 4px 10px; border-radius: 9999px; letter-spacing: 1px; margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .lane h3 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: 26px; margin-bottom: 10px; letter-spacing: -0.4px; }
+  .lane p { font-size: 16px; color: var(--muted); line-height: 1.6; }
+  .lane p strong { color: var(--fg); font-weight: 600; }
+
+  /* MARKET CHAIN */
+  .market-chain {
+    display: flex; flex-direction: column; gap: 0;
+    margin-top: 18px; max-width: 1100px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  }
+  .market-callout {
+    margin-top: 18px; max-width: 1100px;
+    padding: 22px 28px; border-radius: 14px;
+    background: var(--accent-soft); border: 1px solid var(--accent);
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px;
+  }
+  .market-callout .nyc-line {
+    font-family: "DM Serif Display", serif; font-style: italic;
+    font-size: clamp(20px, 1.8vw, 28px); color: var(--fg); letter-spacing: -0.4px;
+  }
+  .market-callout .upside-num {
+    font-family: "DM Serif Display", serif; font-size: clamp(28px, 2.6vw, 40px);
+    color: var(--primary); letter-spacing: -0.6px; line-height: 1; text-align: right;
+  }
+  .market-callout .metros {
+    grid-column: 1 / -1; font-size: 13px; color: var(--muted); letter-spacing: 0.4px;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .market-row {
+    display: grid; grid-template-columns: 220px 1fr 200px;
+    align-items: center; gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .market-row:last-child { border-bottom: 0; background: var(--primary-light); }
+  .market-row .step {
+    font-size: 12px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase;
+  }
+  .market-row .desc { font-size: 15px; color: var(--fg); line-height: 1.4; }
+  .market-row .desc em { color: var(--muted); font-style: italic; }
+  .market-row .value {
+    font-family: "DM Serif Display", serif; font-size: 28px;
+    color: var(--primary); text-align: right; letter-spacing: -0.5px; line-height: 1;
+  }
+  .market-row.total .value { font-size: 36px; }
+  .market-row.total .step { color: var(--primary); }
+
+  /* GTM — channels */
+  .gtm-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; max-width: 1200px; margin-top: 18px;
+  }
+  .gtm {
+    padding: 24px; border-radius: 14px; background: var(--card);
+    border: 1px solid var(--border);
+  }
+  .gtm .phase {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .gtm h3 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: 22px; letter-spacing: -0.4px; margin-bottom: 10px; }
+  .gtm ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .gtm li { font-size: 15px; color: var(--muted); line-height: 1.55; padding-left: 16px; position: relative; }
+  .gtm li strong { color: var(--fg); font-weight: 600; }
+  .gtm li::before { content: ""; width: 5px; height: 5px; background: var(--primary); border-radius: 9999px; position: absolute; left: 2px; top: 9px; }
+  .gtm .target {
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--fg);
+  }
+  .gtm .target strong { color: var(--primary); font-weight: 700; }
+
+  /* ROADMAP */
+  .roadmap {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px; max-width: 1300px; margin-top: 18px;
+  }
+  .rm {
+    padding: 22px 20px; border-radius: 14px; background: var(--card);
+    border: 1px solid var(--border); position: relative;
+  }
+  .rm .q {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .rm h3 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: 21px; letter-spacing: -0.3px; margin-bottom: 10px; line-height: 1.2; }
+  .rm ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .rm li { font-size: 14.5px; color: var(--muted); line-height: 1.5; padding-left: 14px; position: relative; }
+  .rm li strong { color: var(--fg); font-weight: 600; }
+  .rm li::before { content: "→"; color: var(--primary); position: absolute; left: 0; }
+
+  /* RISKS */
+  .risks {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    max-width: 1300px; margin-top: 14px;
+  }
+  .risk {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden;
+  }
+  .risk-side {
+    padding: 18px 24px;
+  }
+  .risk-side.problem {
+    background: var(--accent-soft);
+    border-right: 1px solid var(--border);
+  }
+  .risk-side.fix {
+    background: var(--card);
+  }
+  .risk-side .label {
+    font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .risk-side.problem .label { color: var(--warn); }
+  .risk-side.fix .label { color: var(--good); }
+  .risk-side h4 {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 19px; letter-spacing: -0.3px; margin-bottom: 6px;
+  }
+  .risk-side p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .risk-side p strong { color: var(--fg); font-weight: 600; }
+
+  /* USE OF FUNDS */
+  .funds {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px;
+    max-width: 1200px; margin-top: 18px; align-items: start;
+  }
+  .funds-list { display: flex; flex-direction: column; gap: 12px; }
+  .fund-row {
+    display: grid; grid-template-columns: 70px 1fr 70px;
+    align-items: center; gap: 18px;
+    padding: 16px 18px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .fund-row .pct {
+    font-family: "DM Serif Display", serif; font-size: 28px;
+    color: var(--primary); line-height: 1; letter-spacing: -0.6px;
+  }
+  .fund-row .what {
+    font-size: 14px; color: var(--fg); line-height: 1.4;
+  }
+  .fund-row .what strong { font-weight: 600; }
+  .fund-row .what em { color: var(--muted); font-style: italic; font-size: 13px; }
+  .fund-row .amt {
+    font-family: "DM Serif Display", serif; font-size: 18px;
+    text-align: right; color: var(--muted);
+  }
+  .funds-side {
+    padding: 32px 30px;
+    background: linear-gradient(165deg, var(--primary-light) 0%, var(--card) 100%);
+    border: 1px solid var(--primary-ring); border-radius: 18px;
+    position: relative; overflow: hidden;
+  }
+  .funds-side::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  }
+  .funds-side .fs-eyebrow {
+    font-size: 11px; font-weight: 700; color: var(--primary);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .funds-side h3 {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 30px; margin-bottom: 18px; letter-spacing: -0.5px;
+    color: var(--fg); line-height: 1.1;
+  }
+  .funds-side ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .funds-side li {
+    font-size: 15px; color: var(--muted); line-height: 1.5;
+    padding-left: 32px; position: relative;
+  }
+  .funds-side li strong { color: var(--fg); font-weight: 600; }
+  .funds-side li::before {
+    content: ""; position: absolute; left: 0; top: 4px;
+    width: 18px; height: 18px; border-radius: 9999px;
+    background: var(--good);
+  }
+  .funds-side li::after {
+    content: "✓"; position: absolute; left: 4px; top: 2px;
+    color: #fff; font-size: 11px; font-weight: 700; line-height: 18px;
+  }
+
+  /* TEAM */
+  .team-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 18px; max-width: 1100px; }
+  .team-row.team-grid-4 { grid-template-columns: repeat(4,1fr); max-width: 1300px; }
+  .person {
+    padding: 28px 22px; border: 1px solid var(--border); border-radius: 14px;
+    background: var(--card); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px; min-height: 220px;
+  }
+  .person h3 { font-family: "DM Serif Display", serif; font-weight: 400; font-size: clamp(20px, 1.8vw, 26px); letter-spacing: -0.5px; text-align: center; line-height: 1.15; }
+  .avatar {
+    width: 110px; height: 110px; border-radius: 9999px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 36px; color: #fff; letter-spacing: -0.5px;
+  }
+  .avatar.c1 { background: var(--primary); }
+  .avatar.c2 { background: var(--accent); }
+  .avatar.c3 { background: var(--good); }
+  .avatar.c4 { background: var(--warn); }
+  .avatar.avatar-photo { background: var(--border); overflow: hidden; padding: 0; }
+  .avatar.avatar-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .avatar.avatar-photo img[src*="jary"] { object-position: 50% 20%; }
+  .avatar.avatar-photo img[src*="jerry"] { object-position: 50% 25%; }
+
+  /* CLOSE */
+  .s-close { justify-content: center; align-items: center; text-align: center; }
+  .s-close h1 {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: clamp(48px, 6.4vw, 88px); letter-spacing: -1px; line-height: 1.05;
+    max-width: 18ch; margin-bottom: 22px;
+  }
+  .s-close h1 em { font-style: italic; color: var(--primary); }
+  .s-close .ask { font-size: 18px; color: var(--muted); max-width: 64ch; line-height: 1.55; }
+  .s-close .ask strong { color: var(--fg); font-weight: 600; }
+  .s-close .ask + .ask { margin-top: 14px; }
+  .s-close .sub { margin-top: 5vh; font-size: 13px; color: var(--subtle); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* INSIDE THE APP — 4-phone row + CSS mockup */
+  .screens-row.screens-row-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px; max-width: 1260px; margin-top: 14px;
+  }
+  .screens-row.screens-row-4 .phone { max-width: 165px; border-radius: 28px; }
+  .screens-row.screens-row-4 .screen {
+    gap: 10px; opacity: 0.45;
+    transition: opacity 380ms ease, transform 380ms ease;
+  }
+  .screens-row.screens-row-4 .screen.is-playing { opacity: 1; transform: scale(1.04); }
+  .screens-row.screens-row-4 .screen.is-playing .phone {
+    box-shadow:
+      0 0 0 4px rgba(90, 123, 175, 0.45),
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 28px 46px -22px rgba(26, 31, 43, 0.38),
+      0 8px 16px -6px rgba(26, 31, 43, 0.22);
+  }
+  .screens-row.screens-row-4 .cap-tag { margin-bottom: 4px; padding: 3px 8px; font-size: 10px; }
+  .screens-row.screens-row-4 .cap-title { font-size: 17px; margin-bottom: 2px; }
+  .screens-row.screens-row-4 .cap-sub { font-size: 12px; line-height: 1.4; }
+  .phone-mock {
+    background: var(--bg);
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 18px 14px; justify-content: flex-start;
+  }
+  .phone-mock .mock-bar {
+    font-size: 11px; color: var(--muted); font-weight: 600;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .phone-mock .mock-input {
+    margin-top: 4px; padding: 10px 12px; border-radius: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    font-size: 10px; color: var(--subtle); font-family: "Inter", monospace;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .phone-mock .mock-cta {
+    margin-top: 4px; padding: 10px; border-radius: 8px;
+    background: var(--primary); color: white;
+    font-size: 11px; font-weight: 600; text-align: center;
+  }
+  .phone-mock .mock-card {
+    margin-top: 10px; padding: 8px; border-radius: 10px;
+    background: var(--card); border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .phone-mock .mc-img {
+    width: 100%; height: 60px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--primary-light), var(--accent-soft));
+  }
+  .phone-mock .mc-title {
+    font-family: "DM Serif Display", serif; font-size: 13px;
+    color: var(--fg); letter-spacing: -0.2px; line-height: 1.2;
+  }
+  .phone-mock .mc-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .phone-mock .mock-foot {
+    margin-top: auto; font-size: 9.5px; color: var(--subtle);
+    text-transform: uppercase; letter-spacing: 1px; text-align: center;
+  }
+
+  /* INSIDE THE APP — under-hood row */
+  .under-hood {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; max-width: 1300px; margin-top: 22px;
+  }
+  .under-hood.under-hood-3 { grid-template-columns: repeat(3, 1fr); max-width: 1200px; }
+  .hood-cell {
+    padding: 16px 18px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .hood-cell .hood-tag {
+    font-size: 10px; font-weight: 700; color: var(--accent);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .hood-cell p { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+  .hood-cell p strong { color: var(--fg); font-weight: 600; }
+
+  /* PRODUCT PROOF — stats grid below logos */
+  .proof-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; max-width: 1300px; margin-top: 18px;
+  }
+  .proof-stat {
+    padding: 14px 16px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .proof-stat strong {
+    font-family: "DM Serif Display", serif; font-weight: 400;
+    font-size: 18px; color: var(--primary); letter-spacing: -0.3px;
+  }
+  .proof-stat span { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* TRACTION — funnel */
+  .funnel {
+    display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center; gap: 12px; margin-top: 14px;
+    max-width: 1100px;
+  }
+  .funnel-step {
+    padding: 22px 18px; border-radius: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    text-align: center;
+  }
+  .funnel-step.hi { background: var(--primary-light); border-color: var(--primary-ring); }
+  .funnel-step .fs-num {
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(48px, 6vw, 84px); line-height: 1;
+    color: var(--primary); letter-spacing: -1.2px; margin-bottom: 6px;
+  }
+  .funnel-step .fs-lab { font-size: 12px; color: var(--muted); line-height: 1.4; font-weight: 500; }
+  .funnel-arrow {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    font-family: "DM Serif Display", serif; font-size: 32px; color: var(--accent);
+    line-height: 1;
+  }
+  .funnel-arrow .rate {
+    font-family: "Inter", sans-serif; font-size: 11px; font-weight: 600;
+    color: var(--muted); letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  .funnel-arrow .rate strong { color: var(--primary); }
+
+  /* MARKET — split layout with metro panel */
+  .market-split {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 18px; max-width: 1300px; margin-top: 12px;
+  }
+  .market-chain.compact .market-row { padding: 9px 18px; grid-template-columns: 100px 1fr 140px; gap: 12px; }
+  .market-chain.compact .market-row .desc { font-size: 13.5px; }
+  .market-chain.compact .market-row .value { font-size: 22px; }
+  .market-chain.compact .market-row.total .value { font-size: 28px; }
+  .metro-panel {
+    padding: 16px 22px; background: var(--primary-light);
+    border: 1px solid var(--primary-ring); border-radius: 14px;
+    display: flex; flex-direction: column;
+  }
+  .metro-panel .metro-head {
+    font-family: "DM Serif Display", serif; font-size: 22px;
+    color: var(--primary); letter-spacing: -0.4px; margin-bottom: 8px;
+  }
+  .metro-list {
+    list-style: none; display: flex; flex-direction: column;
+    gap: 2px;
+  }
+  .metro-list li {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 5px 0; border-bottom: 1px solid var(--primary-ring);
+    font-size: 14px;
+  }
+  .metro-list li:last-child { border-bottom: 0; }
+  .metro-list li .metro-name { color: var(--fg); font-weight: 500; }
+  .metro-list li .metro-arr {
+    font-family: "DM Serif Display", serif; color: var(--primary);
+    font-size: 17px; letter-spacing: -0.3px;
+  }
+  .metro-list li.metro-total {
+    margin-top: 4px; padding-top: 8px; border-top: 2px solid var(--primary);
+    border-bottom: 0;
+  }
+  .metro-list li.metro-total .metro-name {
+    font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1.4px;
+  }
+  .metro-list li.metro-total .metro-arr { font-size: 24px; }
+  .ports-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; max-width: 1300px; margin-top: 12px;
+  }
+  .port {
+    padding: 12px 16px; background: var(--card);
+    border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0;
+    font-size: 13.5px; color: var(--muted); line-height: 1.45;
+  }
+  .port strong { color: var(--fg); font-weight: 600; }
+  .market-disclaimer {
+    margin-top: 10px; font-size: 11.5px; color: var(--subtle);
+    font-style: italic; max-width: 1300px;
+  }
+
+  /* QR slide */
+  .s-qr { justify-content: center; align-items: center; text-align: center; }
+  .s-qr .qr-large {
+    margin-top: 8px; padding: 18px;
+    background: var(--card); border-radius: 24px;
+    box-shadow: 0 14px 40px -20px rgba(26, 31, 43, 0.28);
+  }
+  .s-qr .qr-large img { width: 360px; height: 360px; display: block; }
+  .s-qr .qr-foot { margin-top: 26px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .s-qr .qr-foot-line {
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(28px, 3vw, 40px); color: var(--fg);
+    letter-spacing: -0.4px; line-height: 1.1;
+  }
+  .s-qr .qr-foot-sub {
+    font-size: 13px; font-weight: 600; color: var(--muted);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    html, body { height: auto; overflow: visible; background: var(--bg) !important; }
+    .chrome { display: none !important; }
+    .slide {
+      position: relative; inset: auto; opacity: 1 !important; pointer-events: auto;
+      page-break-after: always; break-after: page;
+      width: 13.333in; height: 7.5in;
+      box-sizing: border-box; background: var(--bg) !important;
+    }
+    .slide:last-child { page-break-after: auto; break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1. TITLE -->
+  <section class="slide s-title active" data-slide="1">
+    <img class="hero-logo" src="sift-logo-v3.png" alt="Sift">
+    <h1>NYC events, <em>sifted</em> just for you.</h1>
+    <p class="tagline">A taste-first event app for young New Yorkers. Live in NYC. Already learning.</p>
+    <p class="byline">The Sift Team · Spring 2026</p>
+  </section>
+
+  <!-- 2. EXECUTIVE SUMMARY -->
+  <section class="slide" data-slide="2">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">01 · Executive summary</p>
+    <h2>Sift is a taste-first event app for young NYC. Already shipping, already learning.</h2>
+
+    <div class="exec-grid">
+      <div class="exec-block">
+        <div class="ex-tag">The problem</div>
+        <div class="ex-h">Discovery is broken. 87% juggle 3+ apps.</div>
+        <p>Across 20 user interviews, the recurring theme: <strong>"I don't want another social media app. I just want to know what's good this weekend."</strong></p>
+      </div>
+      <div class="exec-block">
+        <div class="ex-tag">Our solution</div>
+        <div class="ex-h">A taste graph that ranks every NYC event for you.</div>
+        <p>Sift curates with AI plus an editor (rejecting 85% of incoming inventory), users swipe one card at a time, and the deck re-ranks in real time. <strong>Taste, swipe, plan.</strong></p>
+      </div>
+      <div class="exec-block">
+        <div class="ex-tag">Where we are</div>
+        <div class="ex-h">Live on the App Store. 18.3% conversion post-launch.</div>
+        <p><strong>21 organic downloads, 30 signups, 21 actively engaged, 69 on the waitlist.</strong> ~2.6× Apple's typical product-page benchmark with no paid acquisition. Catalog refreshed every 3 days from 6 live sources.</p>
+      </div>
+      <div class="exec-block">
+        <div class="ex-tag">The ask</div>
+        <div class="ex-h">$750K SAFE. 18 months. NYC end-to-end.</div>
+        <p>Funds iOS and Android launch, push-notification engine, and the curator/creator partnerships that drive growth. <strong>$345M ARR opportunity in NYC alone.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. THE CHANGE -->
+  <section class="slide s-raskin" data-slide="3">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="raskin-eyebrow">02 · The change</p>
+    <div class="raskin-pair">
+      <div class="raskin-line today">
+        <span class="raskin-when">Today</span>
+        <div class="raskin-copy">You open <em style="font-style:italic;color:var(--muted);">six apps</em> and stay home.</div>
+      </div>
+      <div class="raskin-line tomorrow">
+        <span class="raskin-when">Tomorrow</span>
+        <div class="raskin-copy">You open Sift and <em>your night plans itself.</em></div>
+      </div>
+    </div>
+    <p class="raskin-foot">NYC's event industry is enormous and the discovery problem is unsolved. The first taste graph for events wins the city, and the category.</p>
+  </section>
+
+  <!-- 4. PROBLEM -->
+  <section class="slide" data-slide="4">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">03 · The problem</p>
+    <h2>NYC has infinite events. Nothing is actually personalized.</h2>
+
+    <div class="stats-row">
+      <div class="stat-block">
+        <div class="stat-big">87%</div>
+        <div class="stat-copy">of people we interviewed use 3+ apps to find things to do <em>(Eventbrite, TimeOut, IG, Resy, etc.)</em></div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-big">0</div>
+        <div class="stat-copy">interview subjects asked for <em>another social feed.</em> They want answers, not another timeline.</div>
+      </div>
+    </div>
+
+    <div class="quote-cards">
+      <div class="quote-card">
+        <p>"We spend most of our time looking into activities we end up not even going to. We just get overwhelmed and give up."</p>
+        <cite>— Sam, 23. One of 20 user interviews.</cite>
+      </div>
+      <div class="quote-card alt">
+        <p>"Honestly? I don't want another social media app. I just want to know what's good this weekend."</p>
+        <cite>— Recurring theme across 20 interviews.</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WHY NOW -->
+  <section class="slide" data-slide="5">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">04 · Why now</p>
+    <h2>The conditions for a taste graph just landed. The window is open today.</h2>
+    <p class="lead"><strong>A taste graph is a model that learns what you like from how you react.</strong> Spotify, Beli, and TikTok proved the pattern. Three shifts converge in 2026; none existed five years ago, and the incumbents haven't responded.</p>
+
+    <div class="why-now">
+      <div class="wn">
+        <h3>AI curation got cheap</h3>
+        <p>An LLM rubric that scores 1,000 events for audience fit costs &lt;$5/wk. The same job needed a five-person editorial team in 2020. We have it running today.</p>
+      </div>
+      <div class="wn">
+        <h3>Swipe-to-rate trained a generation</h3>
+        <p>Beli, Spotify, and TikTok proved the model. <strong>Events haven't caught up.</strong></p>
+      </div>
+      <div class="wn">
+        <h3>Aggregators are stale</h3>
+        <p>Eventbrite hasn't shipped a meaningful UX change in 5 years. Editorial sites still publish by hand. None personalize. The window is open <em>now</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. SOLUTION -->
+  <section class="slide" data-slide="6">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">05 · The solution</p>
+    <h2>Sift curates. You swipe. It learns.</h2>
+    <p class="solution-sub">Every swipe re-ranks your deck in real time.</p>
+
+    <div class="solution-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="sol">
+        <span class="sol-num">1</span>
+        <h3>Discover</h3>
+        <p>One curated card at a time. The deck is shaped by your taste, not who you follow.</p>
+      </div>
+      <div class="sol">
+        <span class="sol-num">2</span>
+        <h3>Learn</h3>
+        <p>Three intents per swipe. Right is going, left is not now, down is not interested. Each one teaches a different signal. Re-rank in real time.</p>
+      </div>
+      <div class="sol">
+        <span class="sol-num">3</span>
+        <h3>Import</h3>
+        <p>Paste an Instagram or TikTok link, or share-sheet directly into Sift. AI extracts the event and adds it to the catalog. Users feed the moat.</p>
+      </div>
+      <div class="sol">
+        <span class="sol-num">4</span>
+        <h3>Plan</h3>
+        <p>Save, sequence the night, one tap to Apple or Google Calendar. From swipe to "added to my Saturday" in under 30 seconds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. INSIDE THE APP -->
+  <section class="slide" data-slide="7">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">06 · Inside the app</p>
+    <h2 class="wide">Open it. Tune it. Swipe. <em>Import.</em></h2>
+
+    <div class="screens-row screens-row-4">
+      <div class="screen">
+        <div class="phone"><img src="screens/splash.png" data-gif-src="gifs/open.gif" data-gif-order="0" alt="Sift splash"></div>
+        <div class="cap">
+          <span class="cap-tag">Open</span>
+          <div class="cap-title">Find your vibe</div>
+          <div class="cap-sub"><strong>Taste-first event app</strong>, built for NYC.</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="phone"><img src="screens/mood.png" data-gif-src="gifs/tune.gif" data-gif-order="1" alt="Mood chooser"></div>
+        <div class="cap">
+          <span class="cap-tag">Tune</span>
+          <div class="cap-title">Pick a mood</div>
+          <div class="cap-sub">One tap seeds the deck. Or pick <strong>"anything works"</strong> and let the swipes do it.</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="phone"><img src="screens/discover.png" data-gif-src="gifs/swipe.gif" data-gif-order="2" alt="Discover card"></div>
+        <div class="cap">
+          <span class="cap-tag">Swipe</span>
+          <div class="cap-title">Right · Left · Down</div>
+          <div class="cap-sub"><strong>Three intents per card.</strong> Real NYC events. Frieze, not salsa night at a hotel bar.</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="phone"><img src="screens/import.png" data-gif-src="gifs/import.gif" data-gif-order="3" alt="Import from social link"></div>
+        <div class="cap">
+          <span class="cap-tag">Import</span>
+          <div class="cap-title">Paste a link</div>
+          <div class="cap-sub"><strong>IG &amp; TikTok event posts</strong> become Sift events in seconds. AI fills in venue, date, price, ticket URL.</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 8. PRODUCT PROOF -->
+  <section class="slide" data-slide="8">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">07 · The product</p>
+    <h2>We're already pulling NYC's catalog in real time.</h2>
+
+    <div class="logo-row">
+      <div class="logo-cell"><img src="logos/dice.png" alt="Dice"><span class="logo-name">Dice</span></div>
+      <div class="logo-cell"><img src="logos/residentadvisor.png" alt="Resident Advisor"><span class="logo-name">Resident Advisor</span></div>
+      <div class="logo-cell"><img src="logos/luma.jpg" alt="Luma"><span class="logo-name">Luma</span></div>
+      <div class="logo-cell"><img src="logos/fever.svg.png" alt="Fever"><span class="logo-name">Fever</span></div>
+      <div class="logo-cell"><img src="logos/nyc_museums.jpg" alt="NYC Museums"><span class="logo-name">NYC Museums</span></div>
+      <div class="logo-cell"><img src="logos/eventbrite.png" alt="Eventbrite"><span class="logo-name">Eventbrite</span></div>
+    </div>
+
+    <div class="proof-stats">
+      <div class="proof-stat"><strong>Every 3 days</strong><span>auto-refresh via GitHub Actions</span></div>
+      <div class="proof-stat"><strong>11 categories</strong><span>arts, music, comedy, food, nightlife, sports, more</span></div>
+      <div class="proof-stat"><strong>Vibe 1–10</strong><span>LLM-scored, sub-5 suppressed</span></div>
+      <div class="proof-stat"><strong>AI + human</strong><span>rubric does the cut, editor reviews the keep-pile</span></div>
+    </div>
+
+    <p class="proof-foot">
+      <strong>Six live scrapers ingest every 3 days.</strong> AI rejects tourist traps, corporate spam, and kids events. The keep-pile gets vibe-scored 1–10 by an LLM rubric. <strong>Sub-5 never loads in the feed.</strong>
+    </p>
+  </section>
+
+  <!-- 9. HOW THE TASTE GRAPH WORKS -->
+  <section class="slide" data-slide="9">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">08 · How the taste graph works</p>
+    <h2>Curate hard. Score every signal. Every swipe re-ranks the deck.</h2>
+
+    <div class="flow">
+      <div class="flow-col">
+        <span class="step">Step 1 · Curate</span>
+        <h3>Six live sources. Refreshed every 3 days.</h3>
+        <ul>
+          <li><strong>AI ingest</strong> from Dice, Resident Advisor, Luma, Fever, NYC museums, Eventbrite.</li>
+          <li><strong>Claude Sonnet 4.6 with web search</strong> finds what the scrapers miss. Pop-ups. Sample sales. Openings.</li>
+          <li><strong>Editor signs off on the keep-pile.</strong> Eventbrite needs the firehose. We don't.</li>
+        </ul>
+      </div>
+      <div class="flow-col">
+        <span class="step">Step 2 · Score</span>
+        <h3>An LLM scores audience fit. The cut is automated.</h3>
+        <ul>
+          <li><strong>Vibe 1–10</strong> by gpt-4o-mini. <strong>Sub-5 never loads.</strong></li>
+          <li><strong>Category re-classified</strong> at &gt;0.8 confidence. Sample sales don't get filed under nightlife.</li>
+          <li><strong>Tags, venue, price band, geography</strong> all scored per event.</li>
+        </ul>
+      </div>
+      <div class="flow-col">
+        <span class="step">Step 3 · Swipe</span>
+        <h3>Every swipe re-ranks the deck.</h3>
+        <ul>
+          <li><strong>Three intents.</strong> Right is going. Left is not now. Down is not interested.</li>
+          <li><strong>Four signals update per swipe.</strong> Category, tag, borough, price.</li>
+          <li><strong>Re-rank in &lt;200ms.</strong> Cold-start blends quality+timing for ~20 swipes, then fully personalizes.</li>
+          <li>Permanent hide after 3 hard passes. <em>See next slide for the full loop.</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. HOW A SWIPE BECOMES A REC -->
+  <section class="slide" data-slide="10">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">09 · Learns your taste at every swipe</p>
+    <h2>Three intents. Four signals.</h2>
+
+    <div class="gesture-map">
+      <div class="gm-cell gm-pos">
+        <div class="gm-head">Swipe right</div>
+        <div class="gm-icon">→</div>
+        <div class="gm-name">Going</div>
+        <div class="gm-effect"><strong>+0.15</strong> category<br><strong>+0.08</strong> each tag<br><strong>+0.06</strong> borough</div>
+      </div>
+      <div class="gm-cell gm-neutral">
+        <div class="gm-head">Swipe left</div>
+        <div class="gm-icon">←</div>
+        <div class="gm-name">Not now</div>
+        <div class="gm-effect"><strong>Zero impact.</strong><br>Re-surfaces in 2–5 days.</div>
+      </div>
+      <div class="gm-cell gm-neg">
+        <div class="gm-head">Swipe down</div>
+        <div class="gm-icon">↓</div>
+        <div class="gm-name">Not interested</div>
+        <div class="gm-effect"><strong>−0.05</strong> category<br>3 strikes = permanent hide.</div>
+      </div>
+      <div class="gm-cell gm-mute">
+        <div class="gm-head">Swipe up</div>
+        <div class="gm-icon">↑</div>
+        <div class="gm-name">Open detail</div>
+        <div class="gm-effect">No taste signal.<br>Just inspect the card.</div>
+      </div>
+    </div>
+
+    <div class="loop-flow">
+      <div class="loop-step">
+        <div class="loop-num">1</div>
+        <div class="ls-tag">You swipe</div>
+        <div class="ls-body">
+          <span class="sg-arrow">→</span> <span class="sg-action">Going</span>
+          <div class="ls-event">"Jazz at Smoke Sessions, Harlem"</div>
+        </div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="loop-num">2</div>
+        <div class="ls-tag">Four signals update</div>
+        <ul class="signal-list">
+          <li><span>Music</span><strong>+0.15</strong></li>
+          <li><span>jazz</span><strong>+0.08</strong></li>
+          <li><span>intimate</span><strong>+0.08</strong></li>
+          <li><span>Manhattan</span><strong>+0.06</strong></li>
+        </ul>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="loop-num">3</div>
+        <div class="ls-tag">Next card up</div>
+        <div class="ls-body">
+          <div class="ls-event">"Open mic jazz, Bushwick"</div>
+          <div class="ls-foot">Re-scored in &lt;200ms. Matched 3 of 4 signals.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cold-bar">
+      <div class="cb-text"><strong>Cold start.</strong> Personalization warms up over your first ~20 swipes.</div>
+      <div class="cb-track">
+        <div class="cb-fill"></div>
+        <span class="cb-tick cb-start"><strong>Swipe 1</strong><span>quality + timing</span></span>
+        <span class="cb-tick cb-end"><strong>Swipe 20+</strong><span>fully personalized</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. COMPETITION -->
+  <section class="slide" data-slide="12">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">10 · Competition &amp; status quo</p>
+    <p class="preheader">Taste. Taste. Taste.</p>
+    <h2>We're the only taste play.</h2>
+
+    <div class="matrix">
+      <div class="matrix-row head">
+        <div></div>
+        <div>Curated</div>
+        <div>Editorial</div>
+        <div>Personalized</div>
+        <div>One-tap to plan</div>
+      </div>
+      <div class="matrix-row">
+        <div class="col-label"><span class="who">Eventbrite / Dice</span><span class="what">Volume</span></div>
+        <div><span class="check-n">✗ firehose</span></div>
+        <div><span class="check-n">✗</span></div>
+        <div><span class="check-n">✗</span></div>
+        <div><span class="check-n">✗</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="col-label"><span class="who">TimeOut / Infatuation</span><span class="what">Editorial</span></div>
+        <div><span class="check-y">✓ static</span></div>
+        <div><span class="check-y">✓</span></div>
+        <div><span class="check-n">✗</span></div>
+        <div><span class="check-n">✗</span></div>
+      </div>
+      <div class="matrix-row">
+        <div class="col-label"><span class="who">Group chat</span><span class="what">Personalized</span></div>
+        <div><span class="check-y">✓ by friends</span></div>
+        <div><span class="check-n">✗</span></div>
+        <div><span class="check-y">✓ social</span></div>
+        <div><span class="check-n">✗ texts</span></div>
+      </div>
+      <div class="matrix-row row-us">
+        <div class="col-label"><span class="who">Sift</span><span class="what">Taste</span></div>
+        <div><span class="check-y">✓ AI + editor</span></div>
+        <div><span class="check-y">✓ via partners</span></div>
+        <div><span class="check-y">✓ real-time</span></div>
+        <div><span class="check-y">✓ calendar export</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. TRACTION -->
+  <section class="slide" data-slide="12">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow" style="font-size: 14px; letter-spacing: 2.4px;">11 · Traction</p>
+    <h2>18.3% App Store conversion. Zero spend. Zero paid acquisition.</h2>
+
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="fs-num">199</div>
+        <div class="fs-lab">App Store impressions</div>
+      </div>
+      <div class="funnel-arrow">→<span class="rate">~42% tap-through</span></div>
+      <div class="funnel-step">
+        <div class="fs-num">84</div>
+        <div class="fs-lab">Product page views</div>
+      </div>
+      <div class="funnel-arrow">→<span class="rate"><strong>18.3%</strong> install</span></div>
+      <div class="funnel-step hi">
+        <div class="fs-num">21</div>
+        <div class="fs-lab">First-time downloads</div>
+      </div>
+    </div>
+    <p class="slope-foot">Apple's typical product-page conversion is <strong>~5–7%</strong>. Sift converts at <strong>~2.6× the benchmark</strong> with no paid acquisition. <strong>3,544 tracked engagement events</strong>, <strong>30 signups</strong>, <strong>21 actively engaged</strong>, <strong>69 on the waitlist</strong>.</p>
+
+    <ul class="traction-list traction-list-2">
+      <li><strong>Catalog cadence sped up.</strong> Weekly refresh became every 3 days. More fresh inventory, less stale recs.</li>
+      <li><strong>iOS share extension live.</strong> Sift sits in every NYC user's IG and TikTok share sheet. Distribution wedge that incumbents don't have.</li>
+    </ul>
+  </section>
+
+  <!-- 13. BUSINESS MODEL -->
+  <section class="slide" data-slide="13">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">12 · Business model</p>
+    <h2>Two lanes. Both compound on top of the taste graph.</h2>
+
+    <div class="lanes lanes-roomy" style="grid-template-columns: repeat(2, 1fr); max-width: 1300px;">
+      <div class="lane">
+        <span class="tag">Near-term</span>
+        <h3>Affiliate fees</h3>
+        <p><strong>5–15% per ticket and reservation</strong> routed through Sift. Dice and Eventbrite are already in the catalog as scrapers. <strong>Affiliate revenue activates when we wire Resy and Ticketmaster.</strong> Zero ad inventory. Paid only on conversion.</p>
+        <div class="lane-foot">
+          <span class="status-chip target">Targeted</span>
+          <span class="lane-foot-text">Activates Q3 2026</span>
+        </div>
+      </div>
+      <div class="lane">
+        <span class="tag">Mid-term</span>
+        <h3>Sponsored placements &amp; curation</h3>
+        <p><strong>Brands, venues, and editorial partners</strong> pay to run native lists inside the right curated decks. Eater, Infatuation, and top NYC creators are the partnership target once user base passes 10K. <strong>Native, not banner.</strong></p>
+        <div class="lane-foot">
+          <span class="status-chip target">Targeted</span>
+          <span class="lane-foot-text">Activates at 10K MAU</span>
+        </div>
+      </div>
+    </div>
+    <p class="flywheel" style="text-align: center;"><strong>Taste graph compounds</strong> → placements get more valuable → partners pay more.</p>
+  </section>
+
+  <!-- 14. MARKET -->
+  <section class="slide" data-slide="14">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">13 · Market size · bottom-up</p>
+    <h2>$345M ARR in NYC. <em style="font-style:italic;color:var(--primary);">$1.4B+</em> across the top 5 metros.</h2>
+
+    <div class="market-split">
+      <div class="market-chain compact">
+        <div class="market-row">
+          <div class="step">Step 1</div>
+          <div class="desc">NYC residents aged 18–35</div>
+          <div class="value">3.0M</div>
+        </div>
+        <div class="market-row">
+          <div class="step">Step 2</div>
+          <div class="desc">× 50% target band <em>(active spenders)</em></div>
+          <div class="value">1.5M</div>
+        </div>
+        <div class="market-row">
+          <div class="step">Step 3</div>
+          <div class="desc">× 30% reachable in 5 yrs</div>
+          <div class="value">450K</div>
+        </div>
+        <div class="market-row">
+          <div class="step">Step 4</div>
+          <div class="desc">× $200/wk going-out spend</div>
+          <div class="value">$4.7B GMV</div>
+        </div>
+        <div class="market-row total">
+          <div class="step">NYC SOM</div>
+          <div class="desc">× ~7% blended take</div>
+          <div class="value">$345M</div>
+        </div>
+      </div>
+
+      <div class="metro-panel">
+        <div class="metro-head">The playbook ports.</div>
+        <ul class="metro-list">
+          <li><span class="metro-name">NYC</span><span class="metro-arr">$345M</span></li>
+          <li><span class="metro-name">LA</span><span class="metro-arr">$290M</span></li>
+          <li><span class="metro-name">Chicago</span><span class="metro-arr">$180M</span></li>
+          <li><span class="metro-name">Miami</span><span class="metro-arr">$150M</span></li>
+          <li><span class="metro-name">SF Bay</span><span class="metro-arr">$200M</span></li>
+          <li class="metro-total"><span class="metro-name">Top-5 ARR</span><span class="metro-arr">~$1.4B+</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ports-row">
+      <div class="port"><strong>City-agnostic rubric.</strong> Only the keep-pile lead changes per city.</div>
+      <div class="port"><strong>Taste graph compounds.</strong> Every NYC swipe informs the cold-start in LA.</div>
+      <div class="port"><strong>One editorial lead per city.</strong> Not one per genre.</div>
+    </div>
+    <p class="market-disclaimer">Top-5 figures are next-step expansion estimates, not committed plan. NYC is the wedge.</p>
+  </section>
+
+  <!-- 15. GO-TO-MARKET -->
+  <section class="slide" data-slide="15">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">14 · Go-to-market</p>
+    <h2>Three phases. Each one earns the right to the next.</h2>
+
+    <div class="gtm-grid">
+      <div class="gtm">
+        <div class="phase">Phase 1 · Now → Q3 2026</div>
+        <h3>Win NYC core</h3>
+        <ul>
+          <li>Friends-of-friends and creator seeding (Tier-2 NYC TikTok).</li>
+          <li>Curator partnership outreach: Eater and Infatuation lists inside the app.</li>
+          <li>Referral loop: invite a friend, both unlock a list.</li>
+          <li>Press: NY Mag, The Cut, Brooklyn Mag launch coverage.</li>
+        </ul>
+        <div class="target">Target: <strong>10K MAU, 30% W4 retention, early CAC indicators.</strong></div>
+      </div>
+      <div class="gtm">
+        <div class="phase">Phase 2 · Q4 2026 → Q2 2027</div>
+        <h3>Scale NYC, scope city #2</h3>
+        <ul>
+          <li>Push-notification engine: weekend pickups and drop alerts.</li>
+          <li>Affiliate revenue turns on (Resy and Ticketmaster live).</li>
+          <li>Paid social only after creator content proves LTV/CAC &gt; 3.</li>
+          <li><strong>Second-city playbook scoped, editorial lead recruited in parallel.</strong> LA is the lead candidate.</li>
+        </ul>
+        <div class="target">Target: <strong>75K MAU NYC, $40K MRR, second-city editorial lead hired.</strong></div>
+      </div>
+      <div class="gtm">
+        <div class="phase">Phase 3 · 2027+</div>
+        <h3>Own NYC, launch city #2, sequence cities 3–5</h3>
+        <ul>
+          <li>NYC fully owned: 250K MAU, deep editorial moat.</li>
+          <li><strong>City #2 (LA) goes live</strong> once NYC unit economics hit target.</li>
+          <li><strong>Cities 3–5 (Chicago, Miami, SF Bay) sequenced</strong> at six-month intervals.</li>
+          <li>Sponsored placements compounding. Affiliate revenue scaling on Resy and Ticketmaster.</li>
+        </ul>
+        <div class="target">Target: <strong>NYC dominance · $4M ARR run-rate · city #2 live · 3 more in flight.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16. ROADMAP -->
+  <section class="slide" data-slide="16">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">15 · 18-month roadmap</p>
+    <h2>Quarter-by-quarter plan. Funded entirely by this round.</h2>
+
+    <div class="roadmap">
+      <div class="rm">
+        <div class="q">Q2 2026 · Now</div>
+        <h3>App Store live + polish</h3>
+        <ul>
+          <li>iOS shipped, share extension live</li>
+          <li>Three-intent swipe + social import</li>
+          <li>Catalog refresh every 3 days</li>
+          <li>30 signups · 21 active → 1K NYC users</li>
+        </ul>
+      </div>
+      <div class="rm">
+        <div class="q">Q3 2026</div>
+        <h3>Android, revenue, scout city #2</h3>
+        <ul>
+          <li>Android app launch</li>
+          <li>Resy and Ticketmaster affiliate fees live</li>
+          <li>Hire NYC editorial + growth lead</li>
+          <li><strong>Second-city scouting begins (LA shortlist).</strong></li>
+          <li>1K → 10K NYC users</li>
+        </ul>
+      </div>
+      <div class="rm">
+        <div class="q">Q4 2026</div>
+        <h3>NYC depth, recruit city #2 lead</h3>
+        <ul>
+          <li>First sponsored curator placements live</li>
+          <li>Editorial partnerships deepen with Eater + Infatuation</li>
+          <li><strong>Second-city editorial lead recruited.</strong></li>
+          <li>10K → 75K NYC users, $40K MRR</li>
+        </ul>
+      </div>
+      <div class="rm">
+        <div class="q">Q1–Q2 2027</div>
+        <h3>Own NYC, ship city #2, Series A</h3>
+        <ul>
+          <li>NYC dominance, sponsored revenue compounding</li>
+          <li><strong>City #2 goes live; cities 3–5 sequenced.</strong></li>
+          <li>$4M ARR run-rate, A-ready metrics</li>
+          <li>Series A target: $5–8M to fund cities 3–5</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17. RISKS -->
+  <section class="slide" data-slide="17">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">16 · Risks &amp; mitigations</p>
+    <h2>What could break this, and exactly what we do about it.</h2>
+
+    <div class="risks">
+      <div class="risk">
+        <div class="risk-side problem">
+          <div class="label">Risk 01 · Distribution</div>
+          <h4>Cold-start beyond friends-of-friends.</h4>
+          <p>Every event app that's tried social has died bootstrapping the network. Paid acquisition without payback kills runway.</p>
+        </div>
+        <div class="risk-side fix">
+          <div class="label">Mitigation</div>
+          <h4>Creator + curator seeding, not paid social.</h4>
+          <p>Eater and Infatuation curate inside the app; their audience is already ours. Referral unlocks lists. Paid social only after LTV/CAC &gt; 3 on validated creator content.</p>
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-side problem">
+          <div class="label">Risk 02 · Catalog scaling</div>
+          <h4>Hand-curation doesn't scale to 5 cities.</h4>
+          <p>The 85% reject rate depends on a human reviewer. Hiring 5 editorial leads is slow and expensive.</p>
+        </div>
+        <div class="risk-side fix">
+          <div class="label">Mitigation</div>
+          <h4>One editorial lead per city. Same playbook.</h4>
+          <p>The AI rubric does 90% of the cut; the human reviews the keep-pile (~30 min/wk). One lead per city is the model. City-agnostic rubric is the moat.</p>
+        </div>
+      </div>
+
+      <div class="risk">
+        <div class="risk-side problem">
+          <div class="label">Risk 03 · Incumbent response</div>
+          <h4>Eventbrite or TikTok ships a "for you" feed.</h4>
+          <p>If a giant copies the loop, our window closes.</p>
+        </div>
+        <div class="risk-side fix">
+          <div class="label">Mitigation</div>
+          <h4>Their model can't reject the firehose.</h4>
+          <p>Eventbrite's economics need 100% inventory live. TikTok ranks creators, not events. The taste graph compounds; by month 6 the model is the moat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18. TEAM -->
+  <section class="slide" data-slide="18">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">17 · Team</p>
+    <h2>Builders who live the problem. Target demographic, in the product daily.</h2>
+    <p class="lead">Four builders who live the problem, in the product daily. This round buys focused product velocity: Android launch, sponsored placement infrastructure, and the curator/creator partnerships that drive growth.</p>
+
+    <div class="team-row team-grid-4">
+      <div class="person"><div class="avatar avatar-photo"><img src="team/yijie.jpg" alt="Yi-Jie Cheng" style="object-position: 50% 20%;"></div><h3>Yi-Jie Cheng</h3></div>
+      <div class="person"><div class="avatar avatar-photo"><img src="team/jary.jpg" alt="Jary Tolentino"></div><h3>Jary Tolentino</h3></div>
+      <div class="person"><div class="avatar avatar-photo"><img src="team/irene.jpeg" alt="Irene Nam"></div><h3>Irene Nam</h3></div>
+      <div class="person"><div class="avatar avatar-photo"><img src="team/jerry.jpg" alt="Jerry Gu"></div><h3>Jerry Gu</h3></div>
+    </div>
+  </section>
+
+  <!-- 19. USE OF FUNDS -->
+  <section class="slide" data-slide="19">
+    <div class="brand"><img src="sift-logo-v3.png" alt=""><span class="brand-name">Sift</span></div>
+    <p class="eyebrow">18 · Use of funds</p>
+    <h2>$750K SAFE. 18 months runway. Every dollar is line-itemed.</h2>
+
+    <div class="funds">
+      <div class="funds-list">
+        <div class="fund-row">
+          <div class="pct">40%</div>
+          <div class="what"><strong>Engineering and product.</strong> iOS and Android launch, push-notification engine, automated ingest, sponsored placement infrastructure.</div>
+          <div class="amt">$300K</div>
+        </div>
+        <div class="fund-row">
+          <div class="pct">30%</div>
+          <div class="what"><strong>Catalog and curation.</strong> Content licensing, weekly curator stipends, editorial review tooling.</div>
+          <div class="amt">$225K</div>
+        </div>
+        <div class="fund-row">
+          <div class="pct">20%</div>
+          <div class="what"><strong>Marketing and growth.</strong> Creator seeding, app-store assets, referral mechanics. <em>No paid social until LTV/CAC &gt; 3.</em></div>
+          <div class="amt">$150K</div>
+        </div>
+        <div class="fund-row">
+          <div class="pct">10%</div>
+          <div class="what"><strong>Operations.</strong> Legal, infra, accounting, contractor coverage.</div>
+          <div class="amt">$75K</div>
+        </div>
+      </div>
+      <div class="funds-side">
+        <div class="fs-eyebrow">By Q2 2027</div>
+        <h3>What this round buys</h3>
+        <ul>
+          <li><strong>NYC: 41 today → 75K MAU.</strong></li>
+          <li><strong>Android shipped Q3 2026.</strong> iOS already live.</li>
+          <li><strong>Affiliate revenue compounding</strong> with Resy + Ticketmaster.</li>
+          <li><strong>Sponsored placements live</strong> with NYC editorial partners.</li>
+          <li><strong>Social-import distribution wedge scaled.</strong> IG + TikTok share extension.</li>
+          <li><strong>City #2 editorial lead hired</strong> and playbook scoped.</li>
+          <li><strong>$40K MRR run-rate.</strong> A-round-ready metrics by Q2 2027.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20. THE ASK / CLOSE -->
+  <section class="slide s-close" data-slide="20">
+    <img class="hero-logo" src="sift-logo-v3.png" alt="Sift" style="height: 56px; margin-bottom: 28px;">
+    <h1>$750K to make NYC <em>unmissable.</em></h1>
+    <p class="ask">
+      <strong>$750K SAFE</strong> · 18 months runway · funds iOS and Android launch, push-notification engine, sponsored placement infrastructure, and owning NYC end-to-end before any second city.
+    </p>
+    <p class="ask">NYC's event industry is enormous and the discovery problem is unsolved. Sift makes sure you actually go to the right ones, and is the first taste graph for events.</p>
+    <p class="sub">Thank you · questions?</p>
+  </section>
+
+  <!-- 21. SCAN TO INSTALL -->
+  <section class="slide s-qr" data-slide="21">
+    <p class="eyebrow">Try Sift tonight</p>
+    <div class="qr-large">
+      <img src="sift-appstore-qr.svg" alt="Scan to install Sift from the App Store">
+    </div>
+    <div class="qr-foot">
+      <div class="qr-foot-line">Scan to install</div>
+      <div class="qr-foot-sub">Sift · App Store</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="chrome">
+  <div>Sift · Leave-Behind · Spring 2026</div>
+  <div class="chrome-dots" id="dots"></div>
+  <div>← → · F fullscreen · P print</div>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsContainer = document.getElementById('dots');
+  let index = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsContainer.appendChild(d);
+  });
+  const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
+
+  function goTo(i) {
+    index = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === index));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === index));
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'n') goTo(index + 1);
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'p') goTo(index - 1);
+    else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    } else if (e.key === 'Home') goTo(0);
+    else if (e.key === 'End') goTo(slides.length - 1);
+    else if (e.key === 'P') window.print();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    goTo(index + 1);
+  });
+
+  // Inside-the-app gifs — play strictly sequentially, left to right.
+  // While one gif animates, the other three stay frozen on their static PNG
+  // and dim. The active phone is highlighted (full opacity + scale + glow).
+  // The cycle resets every time the user navigates to the slide; the first
+  // gif waits 2s before starting so the audience sees the static layout first.
+  //
+  // Durations measured via ffprobe — update if you re-export:
+  // open.gif 4.36s · tune.gif 8.10s · swipe.gif 12.35s · import.gif 8.40s
+  window.addEventListener('load', () => {
+    const gifs = Array.from(document.querySelectorAll('img[data-gif-src]'))
+      .sort((a, b) => (+a.dataset.gifOrder) - (+b.dataset.gifOrder));
+    if (!gifs.length) return;
+
+    const durations = [4790, 8100, 12350, 8400];
+    // ms to hold the static frame STILL HIGHLIGHTED after each gif ends.
+    const dwells = [0, 0, 0, 0];
+    const initialDelay = 800;  // ms before phone 1 starts after slide is shown
+    const interGap = 400;      // ms of "all phones dim" between consecutive gifs
+
+    gifs.forEach((img) => { img.dataset.staticSrc = img.src; });
+
+    let timeoutId = null;
+
+    function freezeAll() {
+      gifs.forEach((img) => {
+        img.src = img.dataset.staticSrc;
+        const screen = img.closest('.screen');
+        if (screen) screen.classList.remove('is-playing');
+      });
+    }
+
+    function stop() {
+      if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+      freezeAll();
+    }
+
+    function playOne(i) {
+      gifs.forEach((img, idx) => {
+        img.src = img.dataset.staticSrc;
+        const screen = img.closest('.screen');
+        if (screen) screen.classList.toggle('is-playing', idx === i);
+      });
+      const active = gifs[i];
+      active.src = active.dataset.gifSrc + '?t=' + Date.now();
+      const dur = durations[i] || 5000;
+      const dwell = dwells[i] || 0;
+      timeoutId = setTimeout(() => {
+        // Freeze the gif on its static frame — but keep the highlight on
+        // for `dwell` ms so the audience sees it "land" before dimming.
+        active.src = active.dataset.staticSrc;
+        timeoutId = setTimeout(() => {
+          const screen = active.closest('.screen');
+          if (screen) screen.classList.remove('is-playing');
+          timeoutId = setTimeout(() => playOne((i + 1) % gifs.length), interGap);
+        }, dwell);
+      }, dur);
+    }
+
+    function startCycle() {
+      stop();
+      timeoutId = setTimeout(() => playOne(0), initialDelay);
+    }
+
+    const slide = gifs[0].closest('.slide');
+    if (!slide) { startCycle(); return; }
+
+    // Restart cycle whenever this slide becomes active; freeze when it doesn't.
+    const observer = new MutationObserver(() => {
+      if (slide.classList.contains('active')) startCycle();
+      else stop();
+    });
+    observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
+
+    if (slide.classList.contains('active')) startCycle();
+  });
+</script>
+</body>
+</html>
