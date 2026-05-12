@@ -58,6 +58,12 @@ Each assignment links to a detailed description with submission instructions. De
 |-----|-----------|------|
 | Tue Apr 28 (start of class) | [Pitch Deck Draft 1](20260428_pitch-deck-draft.md) | [c24 Pitching](../classes/20260421_c24w13_tue_pitching/deck/slides_c24w13_tue_pitching.pdf) |
 
+## Week 15: Demo Day
+
+| Due | Assignment |
+|-----|-----------|
+| Tue May 12 | Final Pitch Deck — submit both your live deck and leave-behind PDF to your team folder in this repo |
+
 ---
 
 ## Recurring / Ongoing
