@@ -1,0 +1,1 @@
+**Here is a note confirming that the Google Analytics Certification is in progress.**

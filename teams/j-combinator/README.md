@@ -1,4 +1,4 @@
-# Team Name
+# Team Name - J-Combinator (Sift)
 
 ## Members
 - Irene Nam (yn2334)
