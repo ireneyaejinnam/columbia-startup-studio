@@ -1,1 +1,1 @@
-Landing Page URL: https://gainthehouse.github.io/MisfitAI/
+Landing Page URL: https://mkhetrap.github.io/misfitai-landing/
